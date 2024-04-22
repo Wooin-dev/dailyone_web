@@ -10,6 +10,7 @@ import FullLayout from "./layout/FullLayout";
 import {AnimatePresence} from "framer-motion";
 import Login from "./pages/Login";
 import ProtectedRoute from "./pages/ProtectedRoute";
+import Join from "./pages/Join";
 
 function App() {
     // const [cookies] = useCookies(['visited']); TODO : 랜딩페이지 적용 후 활성화
@@ -25,7 +26,7 @@ function App() {
                                 <Route path="/" element={<Home/>}/>
                                 {/*element={cookies.visited ? <Home/> : <Navigate to="/landing" replace/>}/> TODO : 랜딩페이지 적용후 활성화*/}
                                 <Route path="/login" element={<Login/>}/>
-                                <Route path="/sign-up" element={<Login/>}/>
+                                <Route path="/join" element={<Join/>}/>
 
                                 <Route path="/*" element={<NotFound/>}/>
                             </Route>
