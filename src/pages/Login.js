@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {useNavigate} from "react-router-dom";
 import {useRecoilState} from "recoil";
-import {UserInfoAtom} from "../recoil/loginState";
+import {UserTokenAtom} from "../recoil/loginState";
 import axios from "axios";
 import {API_USERS_LOGIN} from "../constants/ApiEndpoint";
 
@@ -10,7 +10,7 @@ const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const [userInfo, setUserInfo] = useRecoilState(UserInfoAtom);
+    const [userInfo, setUserInfo] = useRecoilState(UserTokenAtom);
 
     const navigate = useNavigate();
 
@@ -21,14 +21,14 @@ const Login = () => {
         }, {
             withCredentials: true
         }).then(res => {
-            setUserInfo(res.data);
-            localStorage.setItem('user-info', JSON.stringify(res.data));
-            console.log(res.data);
+            const token = res.data.result.token
+            setUserInfo(token);
+            localStorage.setItem('token', token);
             navigate('/');
         }).catch(error => {
             alert(error)
             console.log(error)
-        })
+        });
     }
 
     return (

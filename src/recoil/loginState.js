@@ -2,10 +2,10 @@ import {atom, selector} from 'recoil';
 
 export const isLoginSelector = selector({
     key: 'isLoginSelector',
-    get: ({get}) => !!get(UserInfoAtom)
+    get: ({get}) => !!get(UserTokenAtom)
 });
 
-export const UserInfoAtom = atom({
-    key: 'UserInfoAtom',
+export const UserTokenAtom = atom({
+    key: 'UserTokenAtom',
     default: undefined,
 });

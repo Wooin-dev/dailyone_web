@@ -11,6 +11,8 @@ import {AnimatePresence} from "framer-motion";
 import Login from "./pages/Login";
 import ProtectedRoute from "./pages/ProtectedRoute";
 import Join from "./pages/Join";
+import Today from "./pages/today/Today";
+import Start from "./pages/Start";
 
 function App() {
     // const [cookies] = useCookies(['visited']); TODO : 랜딩페이지 적용 후 활성화
@@ -23,10 +25,12 @@ function App() {
                         <Routes>
                             {/*MainLayout 적용 페이지들*/}
                             <Route element={<MainLayout/>}>
-                                <Route path="/" element={<Home/>}/>
+                                <Route path="/" element={<Today/>}/>
+                                <Route path="/today" element={<Today/>}/>
                                 {/*element={cookies.visited ? <Home/> : <Navigate to="/landing" replace/>}/> TODO : 랜딩페이지 적용후 활성화*/}
                                 <Route path="/login" element={<Login/>}/>
                                 <Route path="/join" element={<Join/>}/>
+                                <Route path="/start" element={<Start/>}/>
 
                                 <Route path="/*" element={<NotFound/>}/>
                             </Route>
