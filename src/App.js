@@ -26,8 +26,6 @@ function App() {
                             {/*MainLayout 적용 페이지들*/}
                             <Route element={<MainLayout/>}>
                                 <Route path="/" element={<Today/>}/>
-                                <Route path="/today" element={<Today/>}/>
-                                {/*element={cookies.visited ? <Home/> : <Navigate to="/landing" replace/>}/> TODO : 랜딩페이지 적용후 활성화*/}
                                 <Route path="/login" element={<Login/>}/>
                                 <Route path="/join" element={<Join/>}/>
                                 <Route path="/start" element={<Start/>}/>
@@ -44,7 +42,9 @@ function App() {
                                 {/*  유저 전용 페이지  */}
                                 <Route element={<ProtectedRoute/>}>
                                     <Route element={<MainLayout/>}>
-                                        <Route path="/today" element={<Home/>}/>
+
+                                        <Route path="/today" element={<Today/>}/>
+                                        {/*element={cookies.visited ? <Home/> : <Navigate to="/landing" replace/>}/> TODO : 랜딩페이지 적용후 활성화*/}
                                     </Route>
                                     {/*    <Route path="/my-page" element={<Mypage/>}/>*/}
                                 </Route>

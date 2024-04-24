@@ -1,8 +1,11 @@
 import React, {useState} from 'react';
 import axios from "axios";
 import {API_GOALS_CREATE} from "../../constants/ApiEndpoint";
+import {useNavigate} from "react-router-dom";
 
 function CreateMyGoal() {
+
+    const navigate = useNavigate();
 
     const [originalGoal, setOriginalGoal] = useState("");
     const [simpleGoal, setSimpleGoal] = useState("");
@@ -25,11 +28,12 @@ function CreateMyGoal() {
             },
         )
             .then((res) => {
-                alert(res.data.result);
                 console.log('success');
+                navigate("/today")
             })
             .catch((error) => {
                 console.log(error);
+                navigate("/")
             });
     }
 
