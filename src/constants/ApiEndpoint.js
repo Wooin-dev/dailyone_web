@@ -4,6 +4,7 @@ const API_VERSION = "v1";
 // USERS
 export const API_USERS_LOGIN = `${BASE_URI}/api/${API_VERSION}/users/login`;
 export const API_USERS_JOIN = `${BASE_URI}/api/${API_VERSION}/users/join`;
+export const API_USERS_MYINFO = `${BASE_URI}/api/${API_VERSION}/users/myinfo`;
 
 
 // GOALS

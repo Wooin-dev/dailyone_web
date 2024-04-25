@@ -6,6 +6,7 @@ import './css/tabbar.css';
 import './css/scrollbar.css';
 import './css/background.css';
 import './css/landing.css';
+import './css/mypage.css';
 
 import App from './App';
 import {RecoilRoot} from "recoil";
