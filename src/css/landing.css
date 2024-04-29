@@ -1,0 +1,7 @@
+.landing-slide {
+    display: none;
+}
+
+.landing-slide.active {
+    display: block;
+}

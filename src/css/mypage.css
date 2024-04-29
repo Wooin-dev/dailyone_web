@@ -1,0 +1,16 @@
+/*@tailwind base;*/
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+
+    .mypage-profile {
+        margin-top: 80px;
+        margin-bottom: 60px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+}
