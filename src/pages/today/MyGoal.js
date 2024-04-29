@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {getPassedDays} from "../../util/dateUtil";
 import ProgressCircle from "../../component/ProgressCircle";
 import axios from "axios";
-import {API_GOALS_MY_DELETE} from "../../constants/ApiEndpoint";
+import {API_GOALS_DONE, API_GOALS_MY_DELETE} from "../../constants/ApiEndpoint";
 import {useNavigate} from "react-router-dom";
 
 function MyGoal({goal}) {
@@ -12,12 +12,23 @@ function MyGoal({goal}) {
     const [doneCount, setDoneCount] = useState(goal.doneCount);
     const progress = doneCount / passedDays;
 
-    const [isDoneCliked, setIsDoneClicked] = useState(false);
+    const [isDoneCliked, setIsDoneClicked] = useState(goal.doneToday);
     const doneClickHanlder = () => {
-        if (doneCount < passedDays) {
-            setDoneCount(doneCount + 1);
-        }
-        setIsDoneClicked(true);
+        axios.post(API_GOALS_DONE(Number(goal.id)),
+            {},
+            {
+                headers: {Authorization: 'Bearer ' + localStorage.getItem('token')}
+            }
+        ).then(res => {
+                console.log(res);
+                if (doneCount < passedDays) {
+                    setDoneCount(doneCount + 1);
+                }
+                setIsDoneClicked(true);
+            }
+        ).catch(e => {
+            console.log(e)
+        });
     }
 
     const resetGoalBtnHandler = () => {

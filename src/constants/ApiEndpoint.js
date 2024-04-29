@@ -11,3 +11,6 @@ export const API_USERS_MYINFO = `${BASE_URI}/api/${API_VERSION}/users/myinfo`;
 export const API_GOALS_CREATE = `${BASE_URI}/api/${API_VERSION}/goals`;
 export const API_GOALS_MY_DELETE = `${BASE_URI}/api/${API_VERSION}/goals/my`;
 export const API_GOALS_MY = `${BASE_URI}/api/${API_VERSION}/goals/my`;
+
+//
+export const API_GOALS_DONE = (goalId) =>{return `${BASE_URI}/api/${API_VERSION}/goals/${goalId}/done`};
