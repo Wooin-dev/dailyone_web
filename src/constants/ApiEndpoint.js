@@ -1,4 +1,4 @@
-export const BASE_URI = "http://127.0.0.1:8080" //TODO : 배포후 환경에 따른 분기 설정 (로컬/실서버)
+export const BASE_URI = process.env.REACT_APP_API_BASE_URI
 const API_VERSION = "v1";
 
 // USERS
