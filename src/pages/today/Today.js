@@ -12,15 +12,18 @@ const myGoal = null;
 const Today = () => {
     const isLogin = useRecoilValue(isLoginSelector);
     const navigate = useNavigate();
+
+    const [isGoalReset, setIsGoalReset] = useState(false);
+    const [isCreated, setIsCreated] = useState(false);
+    const [myGoal, setMyGoal] = useState(null);
+
     useEffect(() => {
         if (!isLogin) {
             navigate("/start");
         } else {
             getMyGoal();
         }
-    }, []);
-
-    const [myGoal, setMyGoal] = useState(null);
+    }, [isCreated, isGoalReset]);
 
     const getMyGoal = () => {
         axios.get(`${API_GOALS_MY}`,
@@ -36,12 +39,15 @@ const Today = () => {
         })
     }
 
+
+    console.log("today Render")
     return (
         <div className="flex flex-col items-center h-full w-full p-8">
             <div className={"flex-grow w-full"}>
+                {isCreated}{isGoalReset}
             {myGoal != null
-                ? <MyGoal goal={myGoal}/>
-                : <CreateMyGoal/>
+                ? <MyGoal goal={myGoal} setMyGoal={setMyGoal} />
+                : <CreateMyGoal isCreated={isCreated} setIsCreated={setIsCreated} />
             }
             </div>
         </div>
