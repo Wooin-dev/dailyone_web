@@ -9,7 +9,6 @@ const Header = () => {
     const navigate = useNavigate();
 
     const isLogin = useRecoilValue(isLoginSelector);
-    console.log(isLogin?"true":"flase");
 
     return (
         <div className="pt-5 px-8 flex grow-0 justify-between items-center w-full

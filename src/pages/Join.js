@@ -9,14 +9,17 @@ function Join() {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [passwordConfirm, setPasswordConfirm] = useState("");
     const [nickname, setNickname] = useState("");
 
     const [emailErrorMsg, setEmailErrorMsg] = useState("");
     const [passwordErrorMsg, setPasswordErrorMsg] = useState("");
+    const [passwordConfirmErrorMsg, setPasswordConfirmErrorMsg] = useState("");
     const [nicknameErrorMsg, setNicknameErrorMsg] = useState("");
 
     const [isValidatedEmail, setIsValidatedEmail] = useState(false);
     const [isValidatedPassword, setIsValidatedPassword] = useState(false);
+    const [isValidatedPasswordConfirm, setIsValidatedPasswordConfirm] = useState(false);
     const [isValidatedNickname, setIsValidatedNickname] = useState(false);
 
     function validateEmail(email) {
@@ -43,6 +46,18 @@ function Join() {
         }
     }
 
+    function validatePasswordConfirm(passwordConfirm) {
+        setPasswordConfirm(passwordConfirm);
+        if (password !== passwordConfirm) {
+            setPasswordConfirmErrorMsg("비밀번호가 일치하지 않습니다")
+            setIsValidatedPasswordConfirm(false);
+        } else {
+            setPasswordConfirmErrorMsg("")
+            setIsValidatedPasswordConfirm(true);
+        }
+
+    }
+
     function validateNickname(nickname) {
         setNickname(nickname);
         var nicknameLength = nickname.length;
@@ -56,7 +71,7 @@ function Join() {
     }
 
     function validateJoin() {
-        return isValidatedEmail && isValidatedPassword && isValidatedNickname;
+        return isValidatedEmail && isValidatedPassword && isValidatedPasswordConfirm && isValidatedNickname;
     }
 
     function signupSubmit(_email, _password, _nickname) {
@@ -99,6 +114,14 @@ function Join() {
                                validatePassword(e.target.value)
                     }}/>
                     <div className="error-msg">{passwordErrorMsg}</div>
+                </div>
+                <div className="input-wrap">
+                    <div className="input-title"> 비밀번호 확인</div>
+                    <input name={"password"} value={passwordConfirm} type={"password"} placeholder="8자리 이상의 비밀번호"
+                           onChange={e => {
+                               validatePasswordConfirm(e.target.value)
+                           }}/>
+                    <div className="error-msg">{passwordConfirmErrorMsg}</div>
                 </div>
                 <div className="input-wrap">
                     <div className="input-title"> 닉네임</div>
