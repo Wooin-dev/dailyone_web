@@ -3,7 +3,7 @@ import axios from "axios";
 import {API_GOALS_CREATE} from "../../constants/ApiEndpoint";
 import {useNavigate} from "react-router-dom";
 
-function CreateMyGoal() {
+function CreateMyGoal({isCreated, setIsCreated}) {
 
     const navigate = useNavigate();
 
@@ -29,7 +29,7 @@ function CreateMyGoal() {
         )
             .then((res) => {
                 console.log('success');
-                navigate("/today")
+                setIsCreated(!isCreated);
             })
             .catch((error) => {
                 console.log(error);
