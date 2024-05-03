@@ -5,7 +5,7 @@ import axios from "axios";
 import {API_GOALS_DONE, API_GOALS_MY_DELETE} from "../../constants/ApiEndpoint";
 import {useNavigate} from "react-router-dom";
 
-function MyGoal({goal}) {
+function MyGoal({goal, setMyGoal}) {
 
     const navigate = useNavigate();
     const passedDays = getPassedDays(goal.createdAt) + 1 //시작한날이 1일차
@@ -31,6 +31,7 @@ function MyGoal({goal}) {
         });
     }
 
+
     const resetGoalBtnHandler = () => {
         axios.delete(API_GOALS_MY_DELETE,
             {
@@ -40,7 +41,7 @@ function MyGoal({goal}) {
             })
             .then(res => {
                     console.log(res);
-                    navigate("/");
+                    setMyGoal(null);
                 }
             ).catch(e => {
             console.log(e)
