@@ -39,8 +39,6 @@ const Today = () => {
         })
     }
 
-
-    console.log("today Render")
     return (
         <div className="flex flex-col items-center h-full w-full p-8">
             <div className={"flex-grow w-full"}>
