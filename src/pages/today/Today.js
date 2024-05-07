@@ -40,14 +40,12 @@ const Today = () => {
     }
 
     return (
-        <div className="flex flex-col items-center h-full w-full p-8">
-            <div className={"flex-grow w-full"}>
-                {isCreated}{isGoalReset}
+        <div className="flex flex-col items-center flex-grow w-full">
+                {/*{isCreated}{isGoalReset}*/}
             {myGoal != null
                 ? <MyGoal goal={myGoal} setMyGoal={setMyGoal} />
                 : <CreateMyGoal isCreated={isCreated} setIsCreated={setIsCreated} />
             }
-            </div>
         </div>
     );
 }

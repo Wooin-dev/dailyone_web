@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import 'react-calendar/dist/Calendar.css';
 import './css/index.css';
 import './css/global.css';
 import './css/tabbar.css';

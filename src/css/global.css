@@ -26,7 +26,7 @@
         min-width: 300px; /* 최대 너비 설정 */
         max-width: 380px; /* 최대 너비 설정 */
 
-        height: 80vh;
+        height: 90vh;
         max-height: 900px; /* 최소 높이 설정 */
         min-height: 600px; /* 최소 높이 설정 */
 
@@ -177,6 +177,7 @@
             transform: scale(1);
         }
     }
+
 }
 
 
