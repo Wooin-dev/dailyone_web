@@ -14,7 +14,7 @@ import Join from "./pages/Join";
 import Today from "./pages/today/Today";
 import Start from "./pages/Start";
 import MyPage from "./pages/MyPage";
-import Calendar from "./pages/Calendar";
+import CalendarPage from "./pages/CalendarPage";
 
 function App() {
     // const [cookies] = useCookies(['visited']); TODO : 랜딩페이지 적용 후 활성화
@@ -45,7 +45,7 @@ function App() {
                                 <Route element={<ProtectedRoute/>}>
                                     <Route element={<MainLayout/>}>
                                         <Route path="/today" element={<Today/>}/>
-                                        <Route path="/calendar" element={<Calendar/>}/>
+                                        <Route path="/calendar" element={<CalendarPage/>}/>
                                         <Route path="/mypage" element={<MyPage/>}/>
                                         {/*element={cookies.visited ? <Home/> : <Navigate to="/landing" replace/>}/> TODO : 랜딩페이지 적용후 활성화*/}
                                     </Route>
