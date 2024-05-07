@@ -15,3 +15,4 @@ export const API_GOALS_MY = `${BASE_URI}/api/${API_VERSION}/goals/my`;
 //DONE
 export const API_GOALS_DONE = (goalId) =>{return `${BASE_URI}/api/${API_VERSION}/goals/${goalId}/done`};
 export const API_DONE_DATE = `${BASE_URI}/api/${API_VERSION}/done/date`;
+export const API_DONE_MONTH = `${BASE_URI}/api/${API_VERSION}/done/month`;

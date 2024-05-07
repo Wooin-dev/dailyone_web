@@ -2,21 +2,26 @@ import React, {useEffect, useState} from 'react';
 import Calendar from "react-calendar";
 import moment from "moment";
 import axios from "axios";
-import {API_DONE_DATE, API_GOALS_MY} from "../constants/ApiEndpoint";
+import {API_DONE_DATE, API_DONE_MONTH} from "../constants/ApiEndpoint";
 
-const attendDay = ["2024-05-05", "2024-05-08"];
 
 function CalendarPage(props) {
 
     const [date, setDate] = useState(new Date());
-
     const [doneOfDate, setDoneOfDate] = useState([{}]);
+    const [yearMonth, setYearMonth] = useState(moment(date).format("YYYY-MM"));
+    const [doneOfMonth, setDoneOfMonth] = useState([""]);
 
     useEffect(() => {
+        //해당 날짜의 DoneDetail 가져오기 axios
         if (date != null) {
             getDoneOfDate();
         }
     }, [date]);
+
+    useEffect(() => {
+        getDoneOfMonth();
+    }, [yearMonth]);
 
     const getDoneOfDate = () => {
         if (date == null) {
@@ -39,6 +44,29 @@ function CalendarPage(props) {
         })
     }
 
+    const onActiveStartDateChangeHandler = (activeStartDate) => {
+        let pickedYearMonth = moment(activeStartDate).format("YYYY-MM");
+        if (yearMonth !== pickedYearMonth) {
+            setYearMonth(pickedYearMonth);
+        }
+    }
+    const getDoneOfMonth = () => {
+        setDoneOfDate(null);
+        axios.get(`${API_DONE_MONTH}`,
+            {
+                params: {
+                    yearMonth: yearMonth
+                },
+                headers: {
+                    Authorization: 'Bearer ' + localStorage.getItem('token'),
+                }
+            }).then(res => {
+            setDoneOfMonth(res.data.result.doneOfMonthArray);
+            console.log(res.data.result.doneOfMonthArray);
+        }).catch(e => {
+            console.log(e);
+        })
+    }
     return (
         <div className={"size-full p-5 bg-gray-50"}>
             <div className="cal-container">
@@ -52,31 +80,22 @@ function CalendarPage(props) {
                           formatMonthYear={(locale, date) => moment(date).format("YYYY. MM")} // 네비게이션에서 2023. 12 이렇게 보이도록 설정
                           minDetail={"year"}
                           minDate={new Date(2024, 4, 5)} //TODO : 목표의 시작날
-                    // maxDate={new Date(2024,5,3)} TODO : 목표 설정 마감일시 연동하기
+                          maxDate={new Date()}
                           showNeighboringMonth={false} // 전달, 다음달 날짜 숨기기
+                          onActiveStartDateChange={({action, activeStartDate, value, view }
+                                                    ) => onActiveStartDateChangeHandler(activeStartDate)}
                           next2Label={null} // +1년 & +10년 이동 버튼 숨기기
                           prev2Label={null} // -1년 & -10년 이동 버튼 숨기기
                     // 오늘 날짜에 '오늘' 텍스트 삽입하고 출석한 날짜에 점 표시를 위한 설정
                           tileContent={({date, view}) => {
-                              let html = [];
-                              // if (
-                              //     view === "month" &&
-                              //     date.getMonth() === today.getMonth() &&
-                              //     date.getDate() === today.getDate()
-                              // ) {
-                              //     html.push(<div key={"today"} className={"cal-today"}>오늘</div>);
-                              // }
-                              if (
-                                  attendDay.find((x) => x === moment(date).format("YYYY-MM-DD"))
-                              ) {
-                                  html.push(<div className={"cal-done-dot"}/>);
+                              if (doneOfMonth.find((x) => x === moment(date).format("YYYY-MM-DD"))) {
+                                  return <div className={"cal-done-dot"}/>;
                               }
-                              return <>{html}</>;
                           }}
                 />
             </div>
             <div className={"bg-white shadow-md p-3 h-[10rem]"}>
-                <div className={"w-fit mx-auto mb-5 font-bold"}>
+                <div className={"w-fit mx-auto mb-5 font-bold text-gray-700"}>
                     {moment(date).format("YYYY.MM.DD")}
                 </div>
                 <div className={"px-3"}>
@@ -87,7 +106,6 @@ function CalendarPage(props) {
                             </div>
                         </div>
                     ))}
-                    {/*{moment(pickedDayDone.createdAt).format("hh:mm")}*/}
                 </div>
             </div>
         </div>

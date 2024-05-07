@@ -49,7 +49,7 @@ function MyGoal({goal, setMyGoal}) {
     }
 
     return (
-        <div className={"flex flex-col h-full"}>
+        <div className={"flex flex-col w-full h-full p-5"}>
             <div className="text-center text-gray-400 mb-16">
                 오늘의 Done
             </div>
