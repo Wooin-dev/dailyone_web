@@ -82,4 +82,4 @@ jobs:
           script: |
             docker stop $(docker ps -a -q --filter ancestor=donedev/dailyone-web) && docker rm $(docker ps -a -q --filter ancestor=donedev/dailyone-web)
             docker pull donedev/dailyone-web
-            docker run -d -p 80:8080 --name dailyone-server donedev/dailyone-web
+            docker run -d -p 80:8080 --name dailyone-web donedev/dailyone-web
