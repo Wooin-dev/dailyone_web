@@ -37,12 +37,13 @@ jobs:
             ${{ runner.os }}-node-
 
       # (3) 의존성 설치 후 빌드
-      - name: Check Node v            # Node v 확인
-        run: node -v
-      - name: Install dependencies    # 의존 파일 설치
-        run: npm install
-      - name: Generate build          # React Build
-        run: npm run build
+      # DockerFile에서 빌드를 설정해두었으므로 생략
+#      - name: Check Node v            # Node v 확인
+#        run: node -v
+#      - name: Install dependencies    # 의존 파일 설치
+#        run: npm install
+#      - name: Generate build          # React Build
+#        run: npm run build
 
       # (4) Docker 이미지 생성 [option 태그추가시 - {이미지이름}:$(date +%s)]
       - name: Build the Docker image
