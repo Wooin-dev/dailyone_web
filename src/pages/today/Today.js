@@ -6,6 +6,7 @@ import MyGoal from "./MyGoal";
 import CreateMyGoal from "./CreateMyGoal";
 import axios from "axios";
 import {API_PROMISE_GOALS_MY} from "../../constants/ApiEndpoint";
+import LoadingPage from "../loading/LoadingPage";
 
 const myGoal = null;
 
@@ -13,6 +14,7 @@ const Today = () => {
     const isLogin = useRecoilValue(isLoginSelector);
     const navigate = useNavigate();
 
+    const [isLoading, setIsLoading] = useState(true);
     const [isGoalReset, setIsGoalReset] = useState(false);
     const [isCreated, setIsCreated] = useState(false);
     const [myPromiseGoal, setMyPromiseGoal] = useState(null);
@@ -36,15 +38,19 @@ const Today = () => {
             console.log(res.data.result);
         }).catch(e => {
             console.log(e);
+        }).finally(() => {
+            setIsLoading(false);
         })
     }
 
     return (
-        <div className="">
-                {/*{isCreated}{isGoalReset}*/}
-            {myPromiseGoal != null //TODO : 스켈레톤 페이지 추가. 생성창(CreateMyGoal) 순간 보이는 현상 제거하기 위함
-                ? <MyGoal promiseGoal={myPromiseGoal} setMyPromiseGoal={setMyPromiseGoal} />
-                : <CreateMyGoal isCreated={isCreated} setIsCreated={setIsCreated} />
+        <div className="size-full">
+            {/*{isCreated}{isGoalReset}*/}
+            {isLoading ? <LoadingPage/> :
+                myPromiseGoal != null //TODO : 스켈레톤 페이지 추가. 생성창(CreateMyGoal) 순간 보이는 현상 제거하기 위함
+                    ? <MyGoal promiseGoal={myPromiseGoal} setMyPromiseGoal={setMyPromiseGoal}/>
+                    : <CreateMyGoal isCreated={isCreated} setIsCreated={setIsCreated}/>
+
             }
         </div>
     );
