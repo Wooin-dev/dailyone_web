@@ -66,9 +66,17 @@
     color: darkgrey;
 }
 
+.react-calendar__navigation button:enabled:hover {
+    background-color: transparent;
+}
+
 /* 년/월 상단 네비게이션 칸 크기 줄이기 */
 .react-calendar__navigation__label {
     flex-grow: 0 !important;
+}
+
+.react-calendar__navigation__label__labelText {
+    color: black;
 }
 
 /* 요일 밑줄 제거 */
@@ -95,16 +103,16 @@
 /* 네비게이션 월 스타일 적용 */
 .react-calendar__year-view__months__month {
     border-radius: 0.8rem;
-    background-color: dimgrey;
+    background-color: white;
     padding: 0;
 }
 
 /* 네비게이션 현재 월 스타일 적용 */
 .react-calendar__tile--hasActive {
-    background-color: darkgreen;
+    background-color: #ddf6e8;
 
     & abbr {
-        color: white;
+        color: black;
     }
 }
 
@@ -123,7 +131,7 @@
     padding: 20px 6.6667px;
     font-size: 0.9rem;
     font-weight: 600;
-    color: grey;
+    color: black;
 }
 
 /* 선택한 날짜 스타일 적용 */

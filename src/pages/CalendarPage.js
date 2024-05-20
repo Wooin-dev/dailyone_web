@@ -74,12 +74,12 @@ function CalendarPage(props) {
                           value={date}
                           calendarType="gregory" // 일요일 부터 시작
                           locale={"ko-KR"}
-                    // activeStartDate={new Date(2024, 4, 3)}
+                          // activeStartDate={new Date(2024, 4, 3)}
                           formatDay={(locale, date) => moment(date).format('D')}
                           formatYear={(locale, date) => moment(date).format("YYYY")} // 네비게이션 눌렀을때 숫자 년도만 보이게
                           formatMonthYear={(locale, date) => moment(date).format("YYYY. MM")} // 네비게이션에서 2023. 12 이렇게 보이도록 설정
                           minDetail={"year"}
-                          minDate={new Date(2024, 4, 5)} //TODO : 목표의 시작날
+                          //minDate={new Date(2024, 4, 5)} //TODO : 목표의 시작날
                           maxDate={new Date()}
                           showNeighboringMonth={false} // 전달, 다음달 날짜 숨기기
                           onActiveStartDateChange={({action, activeStartDate, value, view }
@@ -100,10 +100,9 @@ function CalendarPage(props) {
                 </div>
                 <div className={"px-3"}>
                     {doneOfDate && doneOfDate.map((done) => (
-                        <div key={done.doneId} className={"flex justify-between items-center mb-1.5"}>
-                            <div>{moment(done.createdAt).format("HH:mm")} {done.goalDto && done.goalDto.simpleGoal} </div>
-                            <div className={"bg-[#0bb8bc] p-2 py-1 rounded-full font-bold text-sm text-white"}>DONE!
-                            </div>
+                        <div key={done.done && done.done.doneId} className={"flex justify-between items-center mb-1.5"}>
+                            <div>{moment(done.done && done.done.createdAt).format("HH:mm")} {done.goal && done.goal.simpleGoal} </div>
+                            <div className={"bg-[#0bb8bc] p-2 py-1 rounded-full font-bold text-sm text-white"}>DONE!</div>
                         </div>
                     ))}
                 </div>

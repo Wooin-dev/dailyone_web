@@ -1,11 +1,11 @@
-import React, {useEffect, useLayoutEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useRecoilValue} from "recoil";
 import {isLoginSelector} from "../../recoil/loginState";
 import {useNavigate} from "react-router-dom";
 import MyGoal from "./MyGoal";
 import CreateMyGoal from "./CreateMyGoal";
 import axios from "axios";
-import {API_GOALS_MY} from "../../constants/ApiEndpoint";
+import {API_PROMISE_GOALS_MY} from "../../constants/ApiEndpoint";
 
 const myGoal = null;
 
@@ -15,24 +15,24 @@ const Today = () => {
 
     const [isGoalReset, setIsGoalReset] = useState(false);
     const [isCreated, setIsCreated] = useState(false);
-    const [myGoal, setMyGoal] = useState(null);
+    const [myPromiseGoal, setMyPromiseGoal] = useState(null);
 
     useEffect(() => {
         if (!isLogin) {
             navigate("/start");
         } else {
-            getMyGoal();
+            getMyPromiseGoal();
         }
     }, [isCreated, isGoalReset]);
 
-    const getMyGoal = () => {
-        axios.get(`${API_GOALS_MY}`,
+    const getMyPromiseGoal = () => {
+        axios.get(`${API_PROMISE_GOALS_MY}`,
             {
                 headers: {
                     Authorization: 'Bearer ' + localStorage.getItem('token'),
                 }
             }).then(res => {
-            setMyGoal(res.data.result);
+            setMyPromiseGoal(res.data.result);
             console.log(res.data.result);
         }).catch(e => {
             console.log(e);
@@ -40,10 +40,10 @@ const Today = () => {
     }
 
     return (
-        <div className="flex flex-col items-center flex-grow w-full">
+        <div className="">
                 {/*{isCreated}{isGoalReset}*/}
-            {myGoal != null
-                ? <MyGoal goal={myGoal} setMyGoal={setMyGoal} />
+            {myPromiseGoal != null //TODO : 스켈레톤 페이지 추가. 생성창(CreateMyGoal) 순간 보이는 현상 제거하기 위함
+                ? <MyGoal promiseGoal={myPromiseGoal} setMyPromiseGoal={setMyPromiseGoal} />
                 : <CreateMyGoal isCreated={isCreated} setIsCreated={setIsCreated} />
             }
         </div>
