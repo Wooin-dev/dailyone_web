@@ -14,6 +14,15 @@ const Login = () => {
 
     const navigate = useNavigate();
 
+    // 엔터키 이벤트 핸들러
+    const handleKeyDown = (event) => {
+        if (event.keyCode === 13) {
+            // 엔터 키가 눌렸을 때 실행할 동작
+            loginBtnHandler();
+        }
+    };
+
+    // 로그인 버튼 핸들러
     function loginBtnHandler() {
         axios.post(`${API_USERS_LOGIN}`, {
             email: email,
@@ -35,7 +44,8 @@ const Login = () => {
         <div className="flex flex-col grow justify-center items-center h-full w-full">
             <h1 className="text-3xl font-bold">Login</h1>
 
-            <div className="flex flex-col items-center w-full px-16 my-12">
+            <div className="flex flex-col items-center w-full px-16 my-12"
+                 onKeyDown={handleKeyDown}>
                 <div className={"input-wrap"}>
                     <div className={"input-title"}>이메일 계정</div>
                     <input name={"id"} value={email} onChange={e => {
