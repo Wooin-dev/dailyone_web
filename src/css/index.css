@@ -1,4 +1,5 @@
 @import "calendar.css";
+@import "loading.css";
 
 @tailwind base;
 @tailwind components;

@@ -1,7 +1,6 @@
 import './css/App.css';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import React from "react";
-import Home from "./pages/Home";
 import Background from "./pages/Background";
 import NotFound from "./pages/NotFound";
 import Landing from "./pages/landing/Landing";
@@ -15,6 +14,7 @@ import Today from "./pages/today/Today";
 import Start from "./pages/Start";
 import MyPage from "./pages/MyPage";
 import CalendarPage from "./pages/CalendarPage";
+import LoadingPage from "./pages/loading/LoadingPage";
 
 function App() {
     // const [cookies] = useCookies(['visited']); TODO : 랜딩페이지 적용 후 활성화
@@ -31,7 +31,7 @@ function App() {
                                 <Route path="/login" element={<Login/>}/>
                                 <Route path="/join" element={<Join/>}/>
                                 <Route path="/start" element={<Start/>}/>
-
+                                <Route path="/loading" element={<LoadingPage/>}/>
                                 <Route path="/*" element={<NotFound/>}/>
                             </Route>
 
