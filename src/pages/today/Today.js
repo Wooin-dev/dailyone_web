@@ -3,7 +3,7 @@ import {useRecoilValue} from "recoil";
 import {isLoginSelector} from "../../recoil/loginState";
 import {useNavigate} from "react-router-dom";
 import MyGoal from "./MyGoal";
-import CreateMyGoal from "./CreateMyGoal";
+import CreateMyGoal from "./createmygoal/CreateMyGoal";
 import axios from "axios";
 import {API_PROMISE_GOALS_MY} from "../../constants/ApiEndpoint";
 import LoadingPage from "../loading/LoadingPage";

@@ -1,5 +1,6 @@
 @import "calendar.css";
 @import "loading.css";
+@import "CreateGoal.css";
 
 @tailwind base;
 @tailwind components;

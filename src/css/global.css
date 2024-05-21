@@ -12,6 +12,16 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        word-break: keep-all;
+    }
+
+    /*스크롤바 숨기기*/
+    ::-webkit-scrollbar {
+        display: none;
+    }
+    body {
+        -ms-overflow-style: none; /* 익스플로러 스크롤바 옵션 */
+        scrollbar-width: none; /* 파이어폭스 스크롤바 옵션 */
     }
 
     h1 {
@@ -58,6 +68,9 @@
         border-bottom: #dddddd solid 1px;
         width: 100%;
         padding: 5px 10px;
+    }
+    input:focus {
+        outline: none;
     }
 
     .input-title {

@@ -11,7 +11,8 @@ const Start = () => {
     return (
         <div className="flex flex-col grow justify-center items-center h-full">
             <h1 className="text-3xl font-bold">
-                <p>꾸준한 목표가 대단한 목표다</p>
+                <p>꾸준한 목표가</p>
+                <p>대단한 목표다</p>
             </h1>
 
             <h2 className={"h-24 mb-12"}>
