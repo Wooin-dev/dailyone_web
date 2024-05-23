@@ -23,18 +23,19 @@ function CreateMyGoal({isCreated, setIsCreated}) {
     const [motivationComment, setMotivationComment] = useState("");
     const [congratsComment, setCongratsComment] = useState("");
     const [startDate, setStartDate] = useState(new Date());
-    const [endDate, setEndDate] = useState(new Date());
+    const [endDate, setEndDate] = useState(new Date(new Date(startDate).setDate(startDate.getDate() + 1)));
     const [promiseDoneCount, setPromiseDoneCount] = useState(0);
     const promiseDoneCountLimit = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24)) + 1;
     const finalStep = 7;
     const stepProgress = `${(step / finalStep) * 100}%`;
     const stepBtnHandler = () => {
-        if (step >= finalStep) {
-            createGoalAxios();
+        if (!validateInput()) {
             return;
         }
-        if (validateInput()) {
+        if (step < finalStep) {
             setStep(step + 1);
+        } else {
+            createGoalAxios();
         }
     }
     const validateInput = () => {
@@ -47,7 +48,7 @@ function CreateMyGoal({isCreated, setIsCreated}) {
             return false;
         }
         if (step === 3 && motivationComment === "") {
-            setValidationMsg("초심이 흔들리는 것보다 다시 잡는게 중요해요");
+            setValidationMsg("초심이 흔들리더라도 다시 잡는게 중요해요");
             return false;
         }
         if (step === 4 && congratsComment === "") {
@@ -104,7 +105,8 @@ function CreateMyGoal({isCreated, setIsCreated}) {
                 <StepInput activeStep={1} currentStep={step}><CreateMyGoalStep1 value={originalGoal}
                                                                                 setValue={setOriginalGoal}/></StepInput>
                 <StepInput activeStep={2} currentStep={step}><CreateMyGoalStep2 value={simpleGoal}
-                                                                                setValue={setSimpleGoal}/></StepInput>
+                                                                                setValue={setSimpleGoal}
+                                                                                originalGoal={originalGoal}/></StepInput>
                 <StepInput activeStep={3} currentStep={step}><CreateMyGoalStep3 value={motivationComment}
                                                                                 setValue={setMotivationComment}/></StepInput>
                 <StepInput activeStep={4} currentStep={step}><CreateMyGoalStep4 value={congratsComment}

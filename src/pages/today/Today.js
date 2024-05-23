@@ -47,7 +47,7 @@ const Today = () => {
         <div className="size-full">
             {/*{isCreated}{isGoalReset}*/}
             {isLoading ? <LoadingPage/> :
-                myPromiseGoal != null //TODO : 스켈레톤 페이지 추가. 생성창(CreateMyGoal) 순간 보이는 현상 제거하기 위함
+                myPromiseGoal != null
                     ? <MyGoal promiseGoal={myPromiseGoal} setMyPromiseGoal={setMyPromiseGoal}/>
                     : <CreateMyGoal isCreated={isCreated} setIsCreated={setIsCreated}/>
 
