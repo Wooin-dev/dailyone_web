@@ -1,0 +1,43 @@
+@keyframes bounce-y {
+    0%, 80% {
+        transform: scaleY(1);
+        border-radius: 50%;
+    }
+    40% {
+        transform: scaleY(2);
+        border-radius: 50% 50% 50% 50% ;
+    }
+}
+
+.dot {
+    background-color: rgb(35, 193, 197);
+}
+
+.bounce-y {
+    animation: bounce-y 1.2s infinite;
+}
+
+.delay-0 {
+    animation-delay: 0s;
+}
+
+.delay-100 {
+    animation-delay: 0.1s;
+}
+
+.delay-200 {
+    animation-delay: 0.2s;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.fade-in {
+    animation: fadeIn 1s ease-in-out;
+}
