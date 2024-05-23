@@ -11,6 +11,7 @@ export const API_USERS_MYINFO = `${BASE_URI}/api/${API_VERSION}/users/myinfo`;
 export const API_GOALS_CREATE = `${BASE_URI}/api/${API_VERSION}/goals`;
 export const API_GOALS_MY_DELETE = `${BASE_URI}/api/${API_VERSION}/goals/my`;
 export const API_GOALS_MY = `${BASE_URI}/api/${API_VERSION}/goals/my`;
+export const API_GOALS_GENERATE_SIMPLE = `${BASE_URI}/api/${API_VERSION}/goals/generate-simple`;
 
 // PROMISE-GOAL
 export const API_PROMISE_GOALS_MY = `${BASE_URI}/api/${API_VERSION}/promise-goals/my`;
