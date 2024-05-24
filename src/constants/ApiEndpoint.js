@@ -21,3 +21,8 @@ export const API_PROMISE_GOALS_MY_DELETE = `${BASE_URI}/api/${API_VERSION}/promi
 export const API_DONE_CLICK = `${BASE_URI}/api/${API_VERSION}/done`;
 export const API_DONE_DATE = `${BASE_URI}/api/${API_VERSION}/done/date`;
 export const API_DONE_MONTH = `${BASE_URI}/api/${API_VERSION}/done/month`;
+
+//SUPER-DONE
+export const API_SUPER_DONE_CLICK = `${BASE_URI}/api/${API_VERSION}/super-done`;
+export const API_SUPER_DONE_DATE = `${BASE_URI}/api/${API_VERSION}/super-done/date`;
+export const API_SUPER_DONE_MONTH = `${BASE_URI}/api/${API_VERSION}/super-done/month`;
