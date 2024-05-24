@@ -31,6 +31,10 @@
         margin: 25px;
     }
 
+    div {
+        outline: none;
+    }
+
     .main-container {
         width: 90vw; /* 최소 너비 설정 */
         min-width: 300px; /* 최대 너비 설정 */

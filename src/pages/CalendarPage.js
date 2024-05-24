@@ -9,9 +9,9 @@ function CalendarPage(props) {
 
     const [date, setDate] = useState(new Date());
     const [yearMonth, setYearMonth] = useState(moment(date).format("YYYY-MM"));
-    const [doneOfDate, setDoneOfDate] = useState([{}]);
+    const [doneOfDate, setDoneOfDate] = useState(null);
     const [doneOfMonth, setDoneOfMonth] = useState([""]);
-    const [superDoneOfDate, setSuperDoneOfDate] = useState([{}]);
+    const [superDoneOfDate, setSuperDoneOfDate] = useState(null);
     const [superDoneOfMonth, setSuperDoneOfMonth] = useState([""]);
 
     useEffect(() => {
@@ -30,6 +30,7 @@ function CalendarPage(props) {
             return;
         }
         setDoneOfDate(null);
+        setSuperDoneOfDate(null);
         axios.get(`${API_DONE_DATE}`,
             {
                 params: {
@@ -65,6 +66,7 @@ function CalendarPage(props) {
 
     const getDoneOfMonth = () => {
         setDoneOfDate(null);
+        setSuperDoneOfDate(null);
         axios.get(`${API_DONE_MONTH}`,
             {
                 params: {
@@ -145,13 +147,13 @@ function CalendarPage(props) {
                     {moment(date).format("YYYY.MM.DD")}
                 </div>
                 <div className={"px-3"}>
-                    {doneOfDate && doneOfDate.map((done) => (
+                    {doneOfDate != null && doneOfDate.map((done) => (
                         <div key={done.done && done.done.doneId} className={"flex justify-between items-center mb-1.5"}>
                             <div>{moment(done.done && done.done.createdAt).format("HH:mm")} {done.goal && done.goal.simpleGoal} </div>
                             <div className={"bg-[#0bb8bc] p-2 py-1 rounded-full font-bold text-sm text-white"}>DONE!</div>
                         </div>
                     ))}
-                    {superDoneOfDate && superDoneOfDate.map((superDone) => (
+                    {superDoneOfDate != null && superDoneOfDate.map((superDone) => (
                         <div key={superDone.superDone && superDone.superDone.superDoneId} className={"flex justify-between items-center mb-1.5"}>
                             <div>{moment(superDone.superDone && superDone.superDone.createdAt).format("HH:mm")} {superDone.goal && superDone.goal.originalGoal} </div>
                             <div className={"bg-green-500 p-2 py-1 rounded-full font-bold text-sm text-white"}>SUPER!</div>

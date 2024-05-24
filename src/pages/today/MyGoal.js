@@ -45,7 +45,7 @@ function MyGoal({promiseGoal, setMyPromiseGoal}) {
         ).then(res => {
                 console.log(res);
                 if (superDoneCount < passedDays) {
-                    setSuperDoneCount(doneCount + 1);
+                    setSuperDoneCount(superDoneCount + 1);
                 }
                 setIsSuperDoneClicked(true);
             }

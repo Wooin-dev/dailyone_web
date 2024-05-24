@@ -38,6 +38,16 @@ const ProgressCircle = ({ progressDone, progressSuperDone, size }) => {
                 strokeDashoffset={strokeDashoffsetDone}
                 strokeLinecap="round" // 둥근 끝 설정
             />
+            <circle
+                className="fill-none stroke-current text-green-500 transition-all duration-500"
+                cx={centerX}
+                cy={centerY}
+                r={radius}
+                strokeWidth={strokeWidth}
+                strokeDasharray={circumference}
+                strokeDashoffset={strokeDashoffsetSuperDone}
+                strokeLinecap="round" // 둥근 끝 설정
+            />
         </svg>
     );
 };
