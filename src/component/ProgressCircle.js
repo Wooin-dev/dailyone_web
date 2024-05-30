@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ProgressCircle = ({ progress, size }) => {
+const ProgressCircle = ({ progressDone, progressSuperDone, size }) => {
     // 원 스트로크의 두께
     const strokeWidth = "10"
     // 원의 반지름
@@ -13,7 +13,8 @@ const ProgressCircle = ({ progress, size }) => {
     // 시작 지점을 12시로 설정하기 위한 오프셋
     // const offset = circumference * 0.25;
     // 진행률에 따른 원의 둘레
-    const strokeDashoffset = circumference * (progress - 1);
+    const strokeDashoffsetDone = circumference * (progressDone - 1);
+    const strokeDashoffsetSuperDone = circumference * (progressSuperDone - 1);
 
 
     return (
@@ -34,7 +35,17 @@ const ProgressCircle = ({ progress, size }) => {
                 r={radius}
                 strokeWidth={strokeWidth}
                 strokeDasharray={circumference}
-                strokeDashoffset={strokeDashoffset}
+                strokeDashoffset={strokeDashoffsetDone}
+                strokeLinecap="round" // 둥근 끝 설정
+            />
+            <circle
+                className="fill-none stroke-current text-green-500 transition-all duration-500"
+                cx={centerX}
+                cy={centerY}
+                r={radius}
+                strokeWidth={strokeWidth}
+                strokeDasharray={circumference}
+                strokeDashoffset={strokeDashoffsetSuperDone}
                 strokeLinecap="round" // 둥근 끝 설정
             />
         </svg>

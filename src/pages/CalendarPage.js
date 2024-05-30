@@ -2,15 +2,17 @@ import React, {useEffect, useState} from 'react';
 import Calendar from "react-calendar";
 import moment from "moment";
 import axios from "axios";
-import {API_DONE_DATE, API_DONE_MONTH} from "../constants/ApiEndpoint";
+import {API_DONE_DATE, API_DONE_MONTH, API_SUPER_DONE_DATE, API_SUPER_DONE_MONTH} from "../constants/ApiEndpoint";
 
 
 function CalendarPage(props) {
 
     const [date, setDate] = useState(new Date());
-    const [doneOfDate, setDoneOfDate] = useState([{}]);
     const [yearMonth, setYearMonth] = useState(moment(date).format("YYYY-MM"));
+    const [doneOfDate, setDoneOfDate] = useState(null);
     const [doneOfMonth, setDoneOfMonth] = useState([""]);
+    const [superDoneOfDate, setSuperDoneOfDate] = useState(null);
+    const [superDoneOfMonth, setSuperDoneOfMonth] = useState([""]);
 
     useEffect(() => {
         //해당 날짜의 DoneDetail 가져오기 axios
@@ -28,6 +30,7 @@ function CalendarPage(props) {
             return;
         }
         setDoneOfDate(null);
+        setSuperDoneOfDate(null);
         axios.get(`${API_DONE_DATE}`,
             {
                 params: {
@@ -41,17 +44,29 @@ function CalendarPage(props) {
             console.log(res.data.result);
         }).catch(e => {
             console.log(e);
-        })
+        });
+
+        axios.get(`${API_SUPER_DONE_DATE}`,
+            {
+                params: {
+                    createdAt: date
+                },
+                headers: {
+                    Authorization: 'Bearer ' + localStorage.getItem('token'),
+                }
+            }).then(res => {
+            setSuperDoneOfDate(res.data.result.superDoneList);
+            console.log(res.data.result);
+        }).catch(e => {
+            console.log(e);
+        });
+
     }
 
-    const onActiveStartDateChangeHandler = (activeStartDate) => {
-        let pickedYearMonth = moment(activeStartDate).format("YYYY-MM");
-        if (yearMonth !== pickedYearMonth) {
-            setYearMonth(pickedYearMonth);
-        }
-    }
+
     const getDoneOfMonth = () => {
         setDoneOfDate(null);
+        setSuperDoneOfDate(null);
         axios.get(`${API_DONE_MONTH}`,
             {
                 params: {
@@ -65,7 +80,29 @@ function CalendarPage(props) {
             console.log(res.data.result.doneOfMonthArray);
         }).catch(e => {
             console.log(e);
-        })
+        });
+
+        axios.get(`${API_SUPER_DONE_MONTH}`,
+            {
+                params: {
+                    yearMonth: yearMonth
+                },
+                headers: {
+                    Authorization: 'Bearer ' + localStorage.getItem('token'),
+                }
+            }).then(res => {
+            setSuperDoneOfMonth(res.data.result.superDoneOfMonthArray);
+            console.log(res.data.result.superDoneOfMonthArray);
+        }).catch(e => {
+            console.log(e);
+        });
+    }
+
+    const onActiveStartDateChangeHandler = (activeStartDate) => {
+        let pickedYearMonth = moment(activeStartDate).format("YYYY-MM");
+        if (yearMonth !== pickedYearMonth) {
+            setYearMonth(pickedYearMonth);
+        }
     }
     return (
         <div className={"size-full p-5 bg-gray-50"}>
@@ -88,9 +125,20 @@ function CalendarPage(props) {
                           prev2Label={null} // -1년 & -10년 이동 버튼 숨기기
                     // 오늘 날짜에 '오늘' 텍스트 삽입하고 출석한 날짜에 점 표시를 위한 설정
                           tileContent={({date, view}) => {
+                              let htmlBuild = [];
                               if (doneOfMonth.find((x) => x === moment(date).format("YYYY-MM-DD"))) {
-                                  return <div className={"cal-done-dot"}/>;
+                                  htmlBuild.push(<div key={moment(date).format("YYYY-MM-DD")}
+                                                      className={"cal-done-dot"} />);
                               }
+                              if (superDoneOfMonth.find((x) => x === moment(date).format("YYYY-MM-DD"))) {
+                                  htmlBuild.push(<div key={moment(date).format("YYYY-MM-DD super")}
+                                                      className={"cal-super-done-dot"}/>);
+                              }
+                              return (
+                                  <div className={"cal-dot-wrap"}>
+                                      {htmlBuild}
+                                  </div>
+                              )
                           }}
                 />
             </div>
@@ -99,10 +147,16 @@ function CalendarPage(props) {
                     {moment(date).format("YYYY.MM.DD")}
                 </div>
                 <div className={"px-3"}>
-                    {doneOfDate && doneOfDate.map((done) => (
+                    {doneOfDate != null && doneOfDate.map((done) => (
                         <div key={done.done && done.done.doneId} className={"flex justify-between items-center mb-1.5"}>
                             <div>{moment(done.done && done.done.createdAt).format("HH:mm")} {done.goal && done.goal.simpleGoal} </div>
                             <div className={"bg-[#0bb8bc] p-2 py-1 rounded-full font-bold text-sm text-white"}>DONE!</div>
+                        </div>
+                    ))}
+                    {superDoneOfDate != null && superDoneOfDate.map((superDone) => (
+                        <div key={superDone.superDone && superDone.superDone.superDoneId} className={"flex justify-between items-center mb-1.5"}>
+                            <div>{moment(superDone.superDone && superDone.superDone.createdAt).format("HH:mm")} {superDone.goal && superDone.goal.originalGoal} </div>
+                            <div className={"bg-green-500 p-2 py-1 rounded-full font-bold text-sm text-white"}>SUPER!</div>
                         </div>
                     ))}
                 </div>

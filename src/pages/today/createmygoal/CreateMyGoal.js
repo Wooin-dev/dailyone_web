@@ -28,6 +28,13 @@ function CreateMyGoal({isCreated, setIsCreated}) {
     const promiseDoneCountLimit = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24)) + 1;
     const finalStep = 7;
     const stepProgress = `${(step / finalStep) * 100}%`;
+
+    const handleKeyDown = (event) => {
+        if (event.keyCode === 13) {
+            // 엔터 키가 눌렸을 때 실행할 동작
+            stepBtnHandler();
+        }
+    };
     const stepBtnHandler = () => {
         if (!validateInput()) {
             return;
@@ -53,6 +60,11 @@ function CreateMyGoal({isCreated, setIsCreated}) {
         }
         if (step === 4 && congratsComment === "") {
             setValidationMsg("미래의 나에게 응원을 남겨보세요");
+            return false;
+        }
+
+        if (step === 7 && (promiseDoneCount == null || promiseDoneCount === 0 || promiseDoneCount === "")) {
+            setValidationMsg("충분히 쉬워보이는 수치로 도전해도 좋아요");
             return false;
         }
         if (step === 7 && promiseDoneCount > promiseDoneCountLimit) {
@@ -101,7 +113,10 @@ function CreateMyGoal({isCreated, setIsCreated}) {
                 </div>
                 <div className="text-center text-gray-400 text-sm">{step} / {finalStep}</div>
             </div>
-            <div className={"p-5 flex-grow relative overflow-y-auto overflow-x-hidden"}>
+
+            <div className={"p-5 flex-grow relative overflow-y-auto overflow-x-hidden"}
+                onKeyDown={handleKeyDown}>
+
                 <StepInput activeStep={1} currentStep={step}><CreateMyGoalStep1 value={originalGoal}
                                                                                 setValue={setOriginalGoal}/></StepInput>
                 <StepInput activeStep={2} currentStep={step}><CreateMyGoalStep2 value={simpleGoal}

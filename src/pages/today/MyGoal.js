@@ -2,17 +2,21 @@ import React, {useState} from 'react';
 import {getPassedDays} from "../../util/dateUtil";
 import ProgressCircle from "../../component/ProgressCircle";
 import axios from "axios";
-import {API_DONE_CLICK, API_PROMISE_GOALS_MY_DELETE} from "../../constants/ApiEndpoint";
+import {API_DONE_CLICK, API_PROMISE_GOALS_MY_DELETE, API_SUPER_DONE_CLICK} from "../../constants/ApiEndpoint";
 import moment from "moment";
 
 function MyGoal({promiseGoal, setMyPromiseGoal}) {
 
     const passedDays = getPassedDays(promiseGoal.promiseGoal.startDate) + 1 //시작한날이 1일차
     const [doneCount, setDoneCount] = useState(promiseGoal.doneCount);
-    const progressValue = doneCount / promiseGoal.promiseGoal.promiseDoneCount;
-    const progress = Math.min(progressValue, 1)
+    const progressValueDone = doneCount / promiseGoal.promiseGoal.promiseDoneCount;
+    const progressDone = Math.min(progressValueDone, 1)
+    const [superDoneCount, setSuperDoneCount] = useState(promiseGoal.superDoneCount);
+    const progressValueSuperDone = superDoneCount / promiseGoal.promiseGoal.promiseDoneCount;
+    const progressSuperDone = Math.min(progressValueSuperDone, 1)
 
     const [isDoneClicked, setIsDoneClicked] = useState(promiseGoal.isDoneToday);
+    const [isSuperDoneClicked, setIsSuperDoneClicked] = useState(promiseGoal.isSuperDoneToday);
 
     const doneClickHanlder = () => {
         axios.post(`${API_DONE_CLICK}/${promiseGoal.promiseGoal.promiseGoalId}`,
@@ -26,6 +30,24 @@ function MyGoal({promiseGoal, setMyPromiseGoal}) {
                     setDoneCount(doneCount + 1);
                 }
                 setIsDoneClicked(true);
+            }
+        ).catch(e => {
+            console.log(e)
+        });
+    }
+
+    const superDoneClickHanlder = () => {
+        axios.post(`${API_SUPER_DONE_CLICK}/${promiseGoal.promiseGoal.promiseGoalId}`,
+            {},
+            {
+                headers: {Authorization: 'Bearer ' + localStorage.getItem('token')}
+            }
+        ).then(res => {
+                console.log(res);
+                if (superDoneCount < passedDays) {
+                    setSuperDoneCount(superDoneCount + 1);
+                }
+                setIsSuperDoneClicked(true);
             }
         ).catch(e => {
             console.log(e)
@@ -60,41 +82,48 @@ function MyGoal({promiseGoal, setMyPromiseGoal}) {
                         <p className={`goal-content ${isDoneClicked && "done-goal"} transition-all`}>{promiseGoal.goal.simpleGoal}</p>
                     </div>
                     <div className="simple-goal popup-animation">
-                        <p className={"goal-content original transition-all"}>{isDoneClicked ? promiseGoal.goal.originalGoal : " "}</p>
+                        <p className={`goal-content original ${isSuperDoneClicked && "super-done-goal"} transition-all`}>{isDoneClicked ? promiseGoal.goal.originalGoal : " "}</p>
                     </div>
                 </div>
                 <div className={"progress-wrap flex relative items-center justify-center mb-10"}>
-                    <ProgressCircle progress={progress} size={130}/>
+                    <ProgressCircle progressDone={progressDone} progressSuperDone={progressSuperDone} size={130}/>
                     <div className={"progress-percent absolute text-center"}>
-                        <p className={"text-2xl font-bold"}>{Math.round(progress * 100)}%</p>
-                        <div className={"passed-days mt-1"}>{doneCount} / {promiseGoal.promiseGoal.promiseDoneCount}</div>
+                        <p className={"text-2xl font-bold"}>{Math.round(progressDone * 100)}%</p>
+                        <div
+                            className={"passed-days mt-1"}>{doneCount} / {promiseGoal.promiseGoal.promiseDoneCount}</div>
                     </div>
                 </div>
                 <div className="goal-info w-full px-5">
                     <div className={"content-wrap justify-between"}>
                         <div className="content-title">목표 달성률</div>
                         <div className="min-w-24">
-                            {`${(moment(promiseGoal.promiseGoal.endDate) - moment(promiseGoal.promiseGoal.startDate))/(1000 * 60 * 60 * 24)+1}일 동안 
+                            {`${(moment(promiseGoal.promiseGoal.endDate) - moment(promiseGoal.promiseGoal.startDate)) / (1000 * 60 * 60 * 24) + 1}일 동안 
                             ${promiseGoal.promiseGoal.promiseDoneCount && promiseGoal.promiseGoal.promiseDoneCount}회`}
                         </div>
                     </div>
                     <div className={"content-wrap justify-between"}>
                         <div className="content-title">목표 시작일</div>
-                        <div className="w-24">{promiseGoal.promiseGoal.createdAt && promiseGoal.promiseGoal.startDate}</div>
+                        <div
+                            className="w-24">{promiseGoal.promiseGoal.createdAt && promiseGoal.promiseGoal.startDate}</div>
                     </div>
                     <div className={"content-wrap justify-between"}>
                         <div className="content-title">목표 종료일</div>
-                        <div className={"w-24"}>{promiseGoal.promiseGoal.endDate && promiseGoal.promiseGoal.endDate}</div>
+                        <div
+                            className={"w-24"}>{promiseGoal.promiseGoal.endDate && promiseGoal.promiseGoal.endDate}</div>
                     </div>
                 </div>
             </div>
             <div className="btn-col w-full mb-0 items-center">
                 <div className="done-btn w-full">
-                    {!isDoneClicked
-                        ? <button className={"btn-main"} onClick={doneClickHanlder}>DONE</button>
-                        : <button className={`btn-special ${isDoneClicked ? 'btn-show' : ''} popup-animation delay-100`}>
-                            SUPER DONE</button>
-                    }
+                    {!isDoneClicked &&
+                        <button className={"btn-main"} onClick={doneClickHanlder}>DONE</button>}
+                    {!isSuperDoneClicked && isDoneClicked &&
+                        <button className={`btn-special ${isDoneClicked ? 'btn-show' : ''} popup-animation delay-100`}
+                                onClick={superDoneClickHanlder}>
+                        SUPER DONE</button>}
+                    {isSuperDoneClicked &&
+                        <button className={`btn-finish ${isSuperDoneClicked ? 'btn-show' : ''} popup-animation delay-100 cursor-auto`}>
+                        CLEAR 🔥🔥</button>}
                 </div>
                 <div>
                     <button className="btn-extra mt-0 p-0 w-fit" onClick={resetGoalBtnHandler}>목표 재설정하기</button>
@@ -102,7 +131,8 @@ function MyGoal({promiseGoal, setMyPromiseGoal}) {
             </div>
 
         </div>
-    );
+    )
+        ;
 }
 
 export default MyGoal;
