@@ -5,6 +5,7 @@ function CreateMyGoalStep1({value, setValue}) {
     useEffect(() => {
         refInput.current.focus();
     }, []);
+
     return (
         <div className={"size-full flex flex-col items-center justify-center"}>
             <div className="w-4/5 h-24">
