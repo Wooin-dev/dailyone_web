@@ -87,16 +87,18 @@ function Join() {
             nickname: _nickname
         }).then(res => {
             console.log(res.data);
+            alert("회원가입에 성공했습니다.");
             navigate('/login');
         }).catch(error => {
-            alert(error);
+            console.log(error);
+            alert("회원가입에 실패했습니다.");
         });
     }
 
     return (
-        <div className={'page-container flex flex-col grow justify-center items-center h-full w-full'}>
+        <div className={"size-full"}>
 
-            <h1>JOIN</h1>
+            <h1 className={"text-center my-10"}>JOIN</h1>
 
             <div className="flex flex-col items-center w-full px-16">
                 <div className="input-wrap">

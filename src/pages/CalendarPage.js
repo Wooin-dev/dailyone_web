@@ -172,7 +172,7 @@ function CalendarPage(props) {
                                     {moment(superDone.superDone && superDone.superDone.createdAt).format("HH:mm")}
                                 </div>
                                 <div>
-                                    {superDone.goal && superDone.goal.simpleGoal}
+                                    {superDone.goal && superDone.goal.originalGoal}
                                 </div>
                             </div>
                         </div>
