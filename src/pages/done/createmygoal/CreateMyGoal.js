@@ -142,8 +142,10 @@ function CreateMyGoal({isCreated, setIsCreated}) {
                     >{validationMsg}
                     </motion.div>
                 }
+                { step > 0 &&
                 <button className={"btn-main my-1"}
-                        onClick={() => stepBtnHandler()}>{step < finalStep ? '다음' : '목표 생성'}</button>
+                        onClick={() => stepBtnHandler()}>{step < finalStep ? '다음' : '목표 생성하기'}</button>
+                }
             </div>
         </div>
     );

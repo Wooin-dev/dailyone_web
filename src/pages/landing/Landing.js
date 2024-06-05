@@ -18,7 +18,7 @@ const Landing = (props) => {
         // 쿠키에 방문 기록이 없다면, 방문 기록을 쿠키에 저장합니다.
         if (!cookies.visited) {
             setCookie('visited', true, {maxAge: 31536000}); // 1년 동안 쿠키 유지
-            alert("쿠키저장");
+            // alert("쿠키저장");
         }
     }, [cookies.visited, setCookie]);
 

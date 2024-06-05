@@ -10,8 +10,8 @@ const TabBar = () => {
 
     return (
         <div className="grow-0 tab-bar text-2xl h-fit py-3">
-            <Tap title="Today" link="/today"><FaRegSquareCheck className="tab-icon"/></Tap>
-            <Tap title="CalendarPage" link="/calendar"><FaRegCalendarCheck className="tab-icon calendar"/></Tap>
+            <Tap title="D'ONE" link="/done"><FaRegSquareCheck className="tab-icon"/></Tap>
+            <Tap title="Calendar" link="/calendar"><FaRegCalendarCheck className="tab-icon calendar"/></Tap>
             <Tap title="Mypage" link="/mypage"><IoPersonCircleOutline className="tab-icon"/></Tap>
         </div>
     );
