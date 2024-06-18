@@ -105,7 +105,7 @@ function CalendarPage(props) {
         }
     }
     return (
-        <div className={"size-full p-5 bg-gray-50"}>
+        <div className={"w-full h-fit p-5 bg-gray-50"}>
             <div className="cal-container">
                 <Calendar onChange={setDate}
                           value={date}
@@ -142,23 +142,47 @@ function CalendarPage(props) {
                           }}
                 />
             </div>
-            <div className={"bg-white shadow-md p-3 h-[10rem]"}>
+            <div className={"bg-white shadow-md p-3 min-h-[10rem] rounded-xl"}>
                 <div className={"w-fit mx-auto mb-5 font-bold text-gray-700"}>
                     {moment(date).format("YYYY.MM.DD")}
                 </div>
-                <div className={"px-3"}>
+                <div className={"px-1.5"}>
                     {doneOfDate != null && doneOfDate.map((done) => (
-                        <div key={done.done && done.done.doneId} className={"flex justify-between items-center mb-1.5"}>
-                            <div>{moment(done.done && done.done.createdAt).format("HH:mm")} {done.goal && done.goal.simpleGoal} </div>
-                            <div className={"bg-[#0bb8bc] p-2 py-1 rounded-full font-bold text-sm text-white"}>DONE!</div>
+                        <div key={done.done && done.done.doneId} className={"flex justify-center items-center mb-2"}>
+                            <div className="w-20">
+                                <div className={"w-fit bg-[#0bb8bc] px-2.5 py-1.5 mx-0 rounded-full font-bold text-sm text-white"}>DONE!</div>
+                            </div>
+                            <div className={"grow mx-3 mt-0.5"}>
+                                <div className="text-xs font-bold text-gray-700">
+                                    {moment(done.done && done.done.createdAt).format("HH:mm")}
+                                </div>
+                                <div>
+                                    {done.goal && done.goal.simpleGoal}
+                                </div>
+                            </div>
                         </div>
                     ))}
                     {superDoneOfDate != null && superDoneOfDate.map((superDone) => (
-                        <div key={superDone.superDone && superDone.superDone.superDoneId} className={"flex justify-between items-center mb-1.5"}>
-                            <div>{moment(superDone.superDone && superDone.superDone.createdAt).format("HH:mm")} {superDone.goal && superDone.goal.originalGoal} </div>
-                            <div className={"bg-green-500 p-2 py-1 rounded-full font-bold text-sm text-white"}>SUPER!</div>
+                        <div key={superDone.superDone && superDone.superDone.superDoneId} className={"flex items-center mb-2"}>
+                            <div className="w-20">
+                                <div className={"w-fit bg-[#22c55e] px-2.5 py-1.5 mx-0 rounded-full font-bold text-sm text-white"}>SUPER!</div>
+                            </div>
+                            <div className={"grow mx-3 mt-0.5"}>
+                                <div className="text-xs font-bold text-gray-700">
+                                    {moment(superDone.superDone && superDone.superDone.createdAt).format("HH:mm")}
+                                </div>
+                                <div>
+                                    {superDone.goal && superDone.goal.originalGoal}
+                                </div>
+                            </div>
                         </div>
                     ))}
+                    {/*{superDoneOfDate != null && superDoneOfDate.map((superDone) => (*/}
+                    {/*    <div key={superDone.superDone && superDone.superDone.superDoneId} className={"flex justify-between items-center mb-1.5"}>*/}
+                    {/*        <div>{moment(superDone.superDone && superDone.superDone.createdAt).format("HH:mm")} {superDone.goal && superDone.goal.originalGoal} </div>*/}
+                    {/*        <div className={"bg-green-500 p-2 py-1 rounded-full font-bold text-sm text-white"}>SUPER!</div>*/}
+                    {/*    </div>*/}
+                    {/*))}*/}
                 </div>
             </div>
         </div>

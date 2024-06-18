@@ -7,7 +7,7 @@ const MainLayout = () => {
     return (
         <>
             <Header/>
-            <div className={"w-full flex-grow overflow-auto"}>
+            <div className={"w-full h-fit relative flex-grow overflow-auto"}>
                 <Outlet/>
             </div>
             <TabBar/>

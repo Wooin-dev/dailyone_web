@@ -64,6 +64,7 @@ function CreateMyGoal({isCreated, setIsCreated}) {
         }
 
         if (step === 7 && (promiseDoneCount == null || promiseDoneCount === 0 || promiseDoneCount === "")) {
+            alert(promiseDoneCount);
             setValidationMsg("충분히 쉬워보이는 수치로 도전해도 좋아요");
             return false;
         }
@@ -96,10 +97,13 @@ function CreateMyGoal({isCreated, setIsCreated}) {
         )
             .then((res) => {
                 console.log('success');
-                setIsCreated(!isCreated);
+                alert("목표를 생성했습니다");
+                navigate("/done")
+                // setIsCreated(!isCreated);
             })
             .catch((error) => {
                 console.log(error);
+                alert("목표 생성에 실패했어요😭");
                 navigate("/")
             });
     }
@@ -115,7 +119,7 @@ function CreateMyGoal({isCreated, setIsCreated}) {
             </div>
 
             <div className={"p-5 flex-grow relative overflow-y-auto overflow-x-hidden"}
-                onKeyDown={handleKeyDown}>
+                 onKeyDown={handleKeyDown}>
 
                 <StepInput activeStep={1} currentStep={step}><CreateMyGoalStep1 value={originalGoal}
                                                                                 setValue={setOriginalGoal}/></StepInput>
@@ -137,13 +141,16 @@ function CreateMyGoal({isCreated, setIsCreated}) {
             </div>
             <div className="w-full py-1 px-4 relative">
                 {validationMsg !== "" &&
-                    <motion.div className="w-full absolute -top-4 left-0 text-center text-red-600" initial={{y: 10, opacity: 0}}
+                    <motion.div className="w-full absolute -top-4 left-0 text-center text-red-600"
+                                initial={{y: 10, opacity: 0}}
                                 animate={{y: 0, opacity: 1}} transition={{type: "spring", duration: 0.5}}
                     >{validationMsg}
                     </motion.div>
                 }
-                <button className={"btn-main my-1"}
-                        onClick={() => stepBtnHandler()}>{step < finalStep ? '다음' : '목표 생성'}</button>
+                {step > 0 &&
+                    <button className={"btn-main my-1"}
+                            onClick={() => stepBtnHandler()}>{step < finalStep ? '다음' : '목표 생성하기'}</button>
+                }
             </div>
         </div>
     );

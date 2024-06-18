@@ -2,22 +2,20 @@ import React, {useEffect, useState} from 'react';
 import {useRecoilValue} from "recoil";
 import {isLoginSelector} from "../../recoil/loginState";
 import {useNavigate} from "react-router-dom";
-import MyGoal from "./MyGoal";
-import CreateMyGoal from "./createmygoal/CreateMyGoal";
 import axios from "axios";
 import {API_PROMISE_GOALS_MY} from "../../constants/ApiEndpoint";
 import LoadingPage from "../loading/LoadingPage";
+import MyPromiseGoalList from "./MyPromiseGoalList";
+import NoGoal from "./createmygoal/NoGoal";
 
-const myGoal = null;
-
-const Today = () => {
+const Done = () => {
     const isLogin = useRecoilValue(isLoginSelector);
     const navigate = useNavigate();
 
     const [isLoading, setIsLoading] = useState(true);
     const [isGoalReset, setIsGoalReset] = useState(false);
     const [isCreated, setIsCreated] = useState(false);
-    const [myPromiseGoal, setMyPromiseGoal] = useState(null);
+    const [myPromiseGoalList, setMyPromiseGoalList] = useState(null);
 
     useEffect(() => {
         if (!isLogin) {
@@ -27,6 +25,10 @@ const Today = () => {
         }
     }, [isCreated, isGoalReset]);
 
+    // useEffect(() => {
+    //     alert(myPromiseGoalList.length);
+    // }, [myPromiseGoalList]);
+
     const getMyPromiseGoal = () => {
         axios.get(`${API_PROMISE_GOALS_MY}`,
             {
@@ -34,8 +36,8 @@ const Today = () => {
                     Authorization: 'Bearer ' + localStorage.getItem('token'),
                 }
             }).then(res => {
-            setMyPromiseGoal(res.data.result);
-            console.log(res.data.result);
+            setMyPromiseGoalList(res.data.result.myPromiseGoalResponseList);
+            console.log(res.data.result.myPromiseGoalResponseList);
         }).catch(e => {
             console.log(e);
         }).finally(() => {
@@ -47,13 +49,14 @@ const Today = () => {
         <div className="size-full">
             {/*{isCreated}{isGoalReset}*/}
             {isLoading ? <LoadingPage/> :
-                myPromiseGoal != null
-                    ? <MyGoal promiseGoal={myPromiseGoal} setMyPromiseGoal={setMyPromiseGoal}/>
-                    : <CreateMyGoal isCreated={isCreated} setIsCreated={setIsCreated}/>
+                myPromiseGoalList && myPromiseGoalList.length !== 0
+                    ? <MyPromiseGoalList promiseGoalList={myPromiseGoalList} />
+                    : <NoGoal />
+                    // <CreateMyGoal isCreated={isCreated} setIsCreated={setIsCreated}/>
 
             }
         </div>
     );
 }
 
-export default Today;
+export default Done;

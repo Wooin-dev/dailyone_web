@@ -10,11 +10,13 @@ import {AnimatePresence} from "framer-motion";
 import Login from "./pages/Login";
 import ProtectedRoute from "./pages/ProtectedRoute";
 import Join from "./pages/Join";
-import Today from "./pages/today/Today";
+import Done from "./pages/done/Done";
 import Start from "./pages/Start";
 import MyPage from "./pages/MyPage";
 import CalendarPage from "./pages/CalendarPage";
 import LoadingPage from "./pages/loading/LoadingPage";
+import CreateMyGoal from "./pages/done/createmygoal/CreateMyGoal";
+import MyPromiseGoal from "./pages/done/MyPromiseGoal";
 
 function App() {
     // const [cookies] = useCookies(['visited']); TODO : 랜딩페이지 적용 후 활성화
@@ -27,7 +29,7 @@ function App() {
                         <Routes>
                             {/*MainLayout 적용 페이지들*/}
                             <Route element={<MainLayout/>}>
-                                <Route path="/" element={<Today/>}/>
+                                <Route path="/" element={<Done/>}/>
                                 <Route path="/login" element={<Login/>}/>
                                 <Route path="/join" element={<Join/>}/>
                                 <Route path="/start" element={<Start/>}/>
@@ -44,9 +46,11 @@ function App() {
                                 {/*  유저 전용 페이지  */}
                                 <Route element={<ProtectedRoute/>}>
                                     <Route element={<MainLayout/>}>
-                                        <Route path="/today" element={<Today/>}/>
+                                        <Route path="/done" element={<Done/>}/>
+                                        <Route path="/promise-goal" element={<MyPromiseGoal/>}/>
                                         <Route path="/calendar" element={<CalendarPage/>}/>
                                         <Route path="/mypage" element={<MyPage/>}/>
+                                        <Route path="/create-goal" element={<CreateMyGoal/>}/>
                                         {/*element={cookies.visited ? <Home/> : <Navigate to="/landing" replace/>}/> TODO : 랜딩페이지 적용후 활성화*/}
                                     </Route>
                                     {/*    <Route path="/my-page" element={<Mypage/>}/>*/}

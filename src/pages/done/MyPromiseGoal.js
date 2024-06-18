@@ -2,10 +2,15 @@ import React, {useState} from 'react';
 import {getPassedDays} from "../../util/dateUtil";
 import ProgressCircle from "../../component/ProgressCircle";
 import axios from "axios";
-import {API_DONE_CLICK, API_PROMISE_GOALS_MY_DELETE, API_SUPER_DONE_CLICK} from "../../constants/ApiEndpoint";
+import {API_DONE_CLICK, API_PROMISE_GOALS_DELETE, API_SUPER_DONE_CLICK} from "../../constants/ApiEndpoint";
 import moment from "moment";
+import {useLocation, useNavigate} from "react-router-dom";
+import {IoArrowBack} from "react-icons/io5";
 
-function MyGoal({promiseGoal, setMyPromiseGoal}) {
+function MyPromiseGoal() {
+    const navigate = useNavigate();
+    const location = useLocation();
+    const promiseGoal = location.state?.promiseGoal;
 
     const passedDays = getPassedDays(promiseGoal.promiseGoal.startDate) + 1 //시작한날이 1일차
     const [doneCount, setDoneCount] = useState(promiseGoal.doneCount);
@@ -17,6 +22,7 @@ function MyGoal({promiseGoal, setMyPromiseGoal}) {
 
     const [isDoneClicked, setIsDoneClicked] = useState(promiseGoal.isDoneToday);
     const [isSuperDoneClicked, setIsSuperDoneClicked] = useState(promiseGoal.isSuperDoneToday);
+
 
     const doneClickHanlder = () => {
         axios.post(`${API_DONE_CLICK}/${promiseGoal.promiseGoal.promiseGoalId}`,
@@ -56,7 +62,7 @@ function MyGoal({promiseGoal, setMyPromiseGoal}) {
 
 
     const resetGoalBtnHandler = () => {
-        axios.delete(API_PROMISE_GOALS_MY_DELETE,
+        axios.delete(`${API_PROMISE_GOALS_DELETE}/${promiseGoal.promiseGoal.promiseGoalId}`,
             {
                 headers: {
                     Authorization: 'Bearer ' + localStorage.getItem('token'),
@@ -64,7 +70,7 @@ function MyGoal({promiseGoal, setMyPromiseGoal}) {
             })
             .then(res => {
                     console.log(res);
-                    setMyPromiseGoal(null);
+                    navigate("/done");
                 }
             ).catch(e => {
             console.log(e)
@@ -72,20 +78,21 @@ function MyGoal({promiseGoal, setMyPromiseGoal}) {
     }
 
     return (
-        <div className={"flex flex-col w-full h-full p-5"}>
-            <div className="text-center text-gray-400 mb-16">
-                오늘의 Done - {passedDays}일차
+        <div className={"flex flex-col w-full h-full py-3 px-5"}>
+            <div className="flex items-center relative mb-5">
+                <IoArrowBack className="absolute size-6 fill-gray-300 cursor-pointer" onClick={() => navigate(-1)}/>
+                <div className={"w-full text-center text-gray-400"}>오늘의 Done - {passedDays}일차</div>
             </div>
             <div className="flex flex-col flex-grow items-center justify-evenly">
-                <div className="wrap-goal flex flex-col w-full">
+                <div className="wrap-goal flex flex-col w-full h-fit mb-3">
                     <div className="original-goal">
                         <p className={`goal-content ${isDoneClicked && "done-goal"} transition-all`}>{promiseGoal.goal.simpleGoal}</p>
                     </div>
                     <div className="simple-goal popup-animation">
-                        <p className={`goal-content original ${isSuperDoneClicked && "super-done-goal"} transition-all`}>{isDoneClicked ? promiseGoal.goal.originalGoal : " "}</p>
+                        <p className={`goal-content original break-all ${isSuperDoneClicked && "super-done-goal"} transition-all`}>{isDoneClicked ? promiseGoal.goal.originalGoal : " "}</p>
                     </div>
                 </div>
-                <div className={"progress-wrap flex relative items-center justify-center mb-10"}>
+                <div className={"progress-wrap flex relative items-center justify-center mb-5"}>
                     <ProgressCircle progressDone={progressDone} progressSuperDone={progressSuperDone} size={130}/>
                     <div className={"progress-percent absolute text-center"}>
                         <p className={"text-2xl font-bold"}>{Math.round(progressDone * 100)}%</p>
@@ -126,7 +133,7 @@ function MyGoal({promiseGoal, setMyPromiseGoal}) {
                         CLEAR 🔥🔥</button>}
                 </div>
                 <div>
-                    <button className="btn-extra mt-0 p-0 w-fit" onClick={resetGoalBtnHandler}>목표 재설정하기</button>
+                    <button className="btn-extra mt-0 p-0 w-fit" onClick={resetGoalBtnHandler}>목표 <span className="text-gray-300 line-through">포기</span> 다음에 다시 도전하기</button>
                 </div>
             </div>
 
@@ -135,4 +142,4 @@ function MyGoal({promiseGoal, setMyPromiseGoal}) {
         ;
 }
 
-export default MyGoal;
+export default MyPromiseGoal;
