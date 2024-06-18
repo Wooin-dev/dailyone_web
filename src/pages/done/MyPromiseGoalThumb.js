@@ -1,11 +1,11 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {getPassedDays} from "../../util/dateUtil";
 import axios from "axios";
-import {API_DONE_CLICK, API_SUPER_DONE_CLICK} from "../../constants/ApiEndpoint";
+import {API_DONE_CLICK, API_PROMISE_GOALS_FINISH, API_SUPER_DONE_CLICK} from "../../constants/ApiEndpoint";
 import ProgressLine from "../../component/ProgressLine";
 import {useNavigate} from "react-router-dom";
 
-function MyPromiseGoalThumb({promiseGoal, onClickHandler}) {
+function MyPromiseGoalThumb({promiseGoal, onCongrats}) {
 
     const passedDays = getPassedDays(promiseGoal.promiseGoal.startDate) + 1 //시작한날이 1일차
     const [doneCount, setDoneCount] = useState(promiseGoal.doneCount);
@@ -19,8 +19,29 @@ function MyPromiseGoalThumb({promiseGoal, onClickHandler}) {
     const [isSuperDoneClicked, setIsSuperDoneClicked] = useState(promiseGoal.isSuperDoneToday);
 
     const navigate = useNavigate();
+
+    useEffect(() => {
+        console.log(promiseGoal.promiseGoal.finishedAt);
+        if (doneCount >= promiseGoal.promiseGoal.promiseDoneCount && promiseGoal.promiseGoal.finishedAt == null) {
+            finishedPromiseGoal();
+        }
+    }, [doneCount]);
+
+    const finishedPromiseGoal = () => {
+        axios.get(`${API_PROMISE_GOALS_FINISH}/${promiseGoal.promiseGoal.promiseGoalId}`,
+            {
+                headers: {
+                    Authorization: 'Bearer ' + localStorage.getItem('token'),
+                }
+            }).then(res => {
+            console.log(res.data);
+            onCongrats(promiseGoal.goal.congratsComment);
+        }).catch(e => {
+            console.log(e);
+        });
+    }
     const handleClick = (promiseGoal) => {
-        navigate('/promise-goal', { state: { promiseGoal } });
+        navigate('/promise-goal', {state: {promiseGoal}});
     };
     const doneClickHanlder = () => {
         axios.post(`${API_DONE_CLICK}/${promiseGoal.promiseGoal.promiseGoalId}`,
@@ -32,7 +53,9 @@ function MyPromiseGoalThumb({promiseGoal, onClickHandler}) {
                 console.log(res);
                 if (doneCount < passedDays) {
                     setDoneCount(doneCount + 1);
+                    promiseGoal.doneCount += 1;
                 }
+                promiseGoal.isDoneToday = true;
                 setIsDoneClicked(true);
             }
         ).catch(e => {
@@ -50,7 +73,9 @@ function MyPromiseGoalThumb({promiseGoal, onClickHandler}) {
                 console.log(res);
                 if (superDoneCount < passedDays) {
                     setSuperDoneCount(superDoneCount + 1);
+                    promiseGoal.superDoneCount += 1;
                 }
+                promiseGoal.isSuperDoneToday = true;
                 setIsSuperDoneClicked(true);
             }
         ).catch(e => {
@@ -59,12 +84,12 @@ function MyPromiseGoalThumb({promiseGoal, onClickHandler}) {
     }
 
     return (
-        <div className={"flex flex-col w-full p-5 mt-5 bg-white rounded-lg"}
+        <div className={"flex flex-col w-full p-5 mt-5 bg-white rounded-lg "}
              key={promiseGoal.promiseGoal.promiseGoalId} onClick={() => handleClick(promiseGoal)}>
             <div className="text-gray-400">
                 {passedDays}일차
             </div>
-            <div className={"flex items-center justify-center"}>
+            <div className={"flex items-center justify-center cursor-pointer"}>
                 <div className="wrap-goal h-fit grow break-all px-2">
                     <div className="original-goal">
                         <div
@@ -82,7 +107,7 @@ function MyPromiseGoalThumb({promiseGoal, onClickHandler}) {
                     </div>
                 </div>
             </div>
-            <div className="flex items-center justify-evenly z-10">
+            <div className="flex items-center justify-evenly">
                 <div className="btn-col w-full mb-0 items-center">
                     <div className="done-btn w-full m-0">
                         {!isDoneClicked &&
@@ -97,7 +122,8 @@ function MyPromiseGoalThumb({promiseGoal, onClickHandler}) {
                                 onClick={(event
                                 ) => {
                                     event.stopPropagation();
-                                    superDoneClickHanlder();}}>
+                                    superDoneClickHanlder();
+                                }}>
                                 SUPER DONE</button>}
                         {isSuperDoneClicked &&
                             <button
