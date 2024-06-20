@@ -54,6 +54,27 @@
         border: #2c2c2c solid 1px;
     }
 
+    @media (max-width: 768px) {
+        .main-container {
+            width: 100vw;
+            min-width: 100vw;
+            max-width: 100vw;
+
+            height: 100vh;
+            max-height: 100vh;
+            min-height: 100vh;
+
+            margin: 0;
+            border-radius: 0;
+            box-shadow: none;
+            border: none;
+        }
+
+        .background-container {
+            display: none;
+        }
+    }
+
     .background-container {
         width: 100%;
         height: 100%;
