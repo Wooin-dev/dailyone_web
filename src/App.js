@@ -29,7 +29,6 @@ function App() {
                         <Routes>
                             {/*MainLayout 적용 페이지들*/}
                             <Route element={<MainLayout/>}>
-                                <Route path="/" element={<Done/>}/>
                                 <Route path="/login" element={<Login/>}/>
                                 <Route path="/join" element={<Join/>}/>
                                 <Route path="/start" element={<Start/>}/>
@@ -46,6 +45,7 @@ function App() {
                                 {/*  유저 전용 페이지  */}
                                 <Route element={<ProtectedRoute/>}>
                                     <Route element={<MainLayout/>}>
+                                        <Route path="/" element={<Done/>}/>
                                         <Route path="/done" element={<Done/>}/>
                                         <Route path="/promise-goal" element={<MyPromiseGoal/>}/>
                                         <Route path="/calendar" element={<CalendarPage/>}/>

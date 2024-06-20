@@ -21,7 +21,6 @@ function MyPromiseGoalThumb({promiseGoal, onCongrats}) {
     const navigate = useNavigate();
 
     useEffect(() => {
-        console.log(promiseGoal.promiseGoal.finishedAt);
         if (doneCount >= promiseGoal.promiseGoal.promiseDoneCount && promiseGoal.promiseGoal.finishedAt == null) {
             finishedPromiseGoal();
         }

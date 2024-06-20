@@ -24,6 +24,7 @@ const Login = () => {
 
     // 로그인 버튼 핸들러
     function loginBtnHandler() {
+        if(!loginValidate()) {return;}
         axios.post(`${API_USERS_LOGIN}`, {
             email: email,
             password: password
@@ -35,9 +36,24 @@ const Login = () => {
             localStorage.setItem('token', token);
             navigate('/');
         }).catch(error => {
-            alert(error)
             console.log(error)
+            if(error.response.status === 404) {
+                alert("로그인에 실패하였습니다");
+            }
         });
+    }
+
+    function loginValidate() {
+        if(email==="" || password==="") {
+            alert("이메일과 비밀번호를 확인해주세요.");
+            return false;
+        }
+        let regex = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}');
+        if(!regex.test(email)) {
+            alert("이메일이 형식에 맞지 않습니다.");
+            return false;
+        }
+        return true;
     }
 
     return (

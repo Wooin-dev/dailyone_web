@@ -16,7 +16,7 @@ function MyPromiseGoalList({promiseGoalList}) {
     };
 
     return (
-        <div className={"flex flex-col w-full relative bg-gray-100 items-center"}>
+        <div className={"flex flex-col w-full min-h-full relative bg-gray-100 items-center"}>
             <h2 className="w-full p-5 bg-white text-2xl font-bold text-gray-600 ">나의 D'ONE</h2>
 
             <div className={"px-4 w-full"}>
