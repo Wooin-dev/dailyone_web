@@ -17,6 +17,7 @@ import CalendarPage from "./pages/CalendarPage";
 import LoadingPage from "./pages/loading/LoadingPage";
 import CreateMyGoal from "./pages/done/createmygoal/CreateMyGoal";
 import MyPromiseGoal from "./pages/done/MyPromiseGoal";
+import KakaoRedirect from "./pages/KakaoRedirect";
 
 function App() {
     // const [cookies] = useCookies(['visited']); TODO : 랜딩페이지 적용 후 활성화
@@ -30,6 +31,7 @@ function App() {
                             {/*MainLayout 적용 페이지들*/}
                             <Route element={<MainLayout/>}>
                                 <Route path="/login" element={<Login/>}/>
+                                <Route path="/kakao-login" element={<KakaoRedirect/>}/>
                                 <Route path="/join" element={<Join/>}/>
                                 <Route path="/start" element={<Start/>}/>
                                 <Route path="/loading" element={<LoadingPage/>}/>

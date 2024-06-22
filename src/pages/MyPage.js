@@ -3,7 +3,6 @@ import axios from "axios";
 import {API_USERS_MYINFO} from "../constants/ApiEndpoint";
 import {IoPersonCircleSharp} from "react-icons/io5";
 import {BiSolidPencil} from "react-icons/bi";
-import {FaCheck} from "react-icons/fa";
 import {AiOutlineRollback} from "react-icons/ai";
 import {useNavigate} from "react-router-dom";
 import {useSetRecoilState} from "recoil";
@@ -95,10 +94,13 @@ function MyPage(props) {
                 </div>
             </div>
             <div className={"flex-grow mx-10"}>
+                {myInfo.kakaoId === null ?
                 <div className="content-wrap">
                     <p className={"content-title"}>이메일</p>
-                    <div>{myInfo.email}</div>
+                    <div>{ myInfo.email}</div>
                 </div>
+                    : <div className="w-full mb-3 text-center text-sm text-gray-600">카카오 로그인 계정</div>
+                }
                 <div className={"content-wrap"}>
                     <p className={"content-title"}>회원가입일</p>
                     <div>{myInfo.createdAt && (myInfo.createdAt).slice(0, 10)}</div>
