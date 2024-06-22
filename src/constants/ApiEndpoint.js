@@ -1,5 +1,5 @@
 export const BASE_URI = process.env.REACT_APP_API_BASE_URI
-const API_VERSION = "v1";
+export const API_VERSION = "v1";
 
 // USERS
 export const API_USERS_LOGIN = `${BASE_URI}/api/${API_VERSION}/users/login`;
