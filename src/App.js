@@ -18,6 +18,7 @@ import LoadingPage from "./pages/loading/LoadingPage";
 import CreateMyGoal from "./pages/done/createmygoal/CreateMyGoal";
 import MyPromiseGoal from "./pages/done/MyPromiseGoal";
 import KakaoRedirect from "./pages/KakaoRedirect";
+import Home from "./pages/home/Home";
 
 function App() {
     // const [cookies] = useCookies(['visited']); TODO : 랜딩페이지 적용 후 활성화
@@ -35,6 +36,7 @@ function App() {
                                 <Route path="/join" element={<Join/>}/>
                                 <Route path="/start" element={<Start/>}/>
                                 <Route path="/" element={<Start/>}/>
+                                <Route path="/home" element={<Home/>}/>
                                 <Route path="/loading" element={<LoadingPage/>}/>
                                 <Route path="/*" element={<NotFound/>}/>
                             </Route>
