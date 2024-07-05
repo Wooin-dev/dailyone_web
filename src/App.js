@@ -34,6 +34,7 @@ function App() {
                                 <Route path="/kakao-login" element={<KakaoRedirect/>}/>
                                 <Route path="/join" element={<Join/>}/>
                                 <Route path="/start" element={<Start/>}/>
+                                <Route path="/" element={<Start/>}/>
                                 <Route path="/loading" element={<LoadingPage/>}/>
                                 <Route path="/*" element={<NotFound/>}/>
                             </Route>
@@ -47,7 +48,7 @@ function App() {
                                 {/*  유저 전용 페이지  */}
                                 <Route element={<ProtectedRoute/>}>
                                     <Route element={<MainLayout/>}>
-                                        <Route path="/" element={<Done/>}/>
+                                        {/*<Route path="/" element={<Done/>}/>*/}
                                         <Route path="/done" element={<Done/>}/>
                                         <Route path="/promise-goal" element={<MyPromiseGoal/>}/>
                                         <Route path="/calendar" element={<CalendarPage/>}/>

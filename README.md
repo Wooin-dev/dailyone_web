@@ -1,70 +1,44 @@
-# Getting Started with Create React App
+## 메인컨셉
+* 1 X 100 < 100 X 1
+    * 푸시업 1일동안 100개 하는 것보다 100일동안 1개 하는게 더 어렵다.
+    * 꾸준함이 대단함이다.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 주요기능계획
+* 쉬운 목표 안내
+    * 굳게 먹은 목표를 입력받았다면, 정말 쉬운 목표를 제시합니다.
+    * ex) 매일 헬스장가기 -> 매일 현관문앞에서 운동화 신기 ex) 매일 공부 2시간씩 하기 -> 매일 공부 5분하기
+* 쉬운 목표 달성시 기존에 입력받은 목표를 추가로 달성
+* 다른사람들의 목표를 추천받아서 동참하고 이를 통해 랭킹 및 통계 지표 제공
+    * 평균 달성률
+    * 추천하는 목표
+* 동기부여 멘트를 미리 설정하여 이탈시 알림 설정
+    * 다른사람의 동기부여 멘트들을
 
-## Available Scripts
 
-In the project directory, you can run:
+### 스펙
+프론트엔드(임시) : React.js, Recoil, Tailwind
+앱(모집) : React Native, Flutter 중 하나
+백엔드 : JAVA/SPRING, JPA, MySQL
+인프라 : AWS(EC2, RDS)
 
-### `npm start`
+### 배포계획
+우선 개인적으로 웹으로 ip를 통해 http접근가능한 수준의 배포는 마친 상태입니다.
++도메인 적용 (무료도메인 적용)
+* 아래는 예정입니다.
+    * HTTPS적용.
+    * 어플배포
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+#### Link
+* http 배포된 링크
+    * http://done.n-e.kr
+* Github Project
+    * https://github.com/users/Wooin-dev/projects/1/views/1
+* Github Repo - Back
+    * https://github.com/Wooin-dev/dailyone_server
+* Github Repo - Front
+    * https://github.com/Wooin-dev/dailyone_web
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+# ERD
+![dailyone_ERD (3)](https://github.com/Wooin-dev/dailyone_server/assets/133616377/27cf3de5-c1f7-46e0-91f2-d6e0206d333f)
