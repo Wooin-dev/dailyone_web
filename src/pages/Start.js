@@ -25,8 +25,8 @@ const Start = recoilState => {
         getUserFromToken();
         if (isLogin) {
             console.log("login");
-            navigate("/done");
-            setActiveKey(1);
+            navigate("/home");
+            setActiveKey(1); //홈버튼의 key 인덱스
         }
     }, [isLogin]);
 
