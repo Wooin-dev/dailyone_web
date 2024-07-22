@@ -9,7 +9,7 @@ import {activeMenuKey} from "../../recoil/activeKeyMenuBtn";
 
 const TabBar = () => {
     return (
-        <div className="grow-0 tab-bar text-2xl h-fit py-3">
+        <div className="grow-0 tab-bar pt-1.5 pb-3">
             <Tap index={1} title="홈" link="/home"><GoHomeFill className="tab-icon"/><GoHome className="tab-icon"/></Tap>
             <Tap index={2} title="D'ONE" link="/done"><FaSquareCheck className="tab-icon"/><FaRegSquareCheck className="tab-icon"/></Tap>
             {/*<Tap index={2} title="Lounge" link="/lounge"><AiFillFire className="tab-icon size-9 mt-0.5"/><AiOutlineFire className="tab-icon size-9 mt-0.5"/></Tap>*/}
@@ -23,10 +23,10 @@ const Tap = ({children, title, link, index}) => {
     const navigate = useNavigate();
     const [OnBtn, OffBtn] = React.Children.toArray(children);
     return (
-        <div className="flex flex-col items-center justify-center w-24 cursor-pointer"
+        <div className="flex flex-col items-center w-24 cursor-pointer"
              onClick={()=>{navigate(link); setActiveKey(index)}}>
             <div>{activeKey && activeKey === index ? OnBtn : OffBtn}</div>
-            <div className="tab-text text-[0.85rem] font-bold">{title}</div>
+            <div className="tab-text text-[0.65rem]">{title}</div>
         </div>
     )
 }
