@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
-import {API_GOALS_CREATE} from "../../../constants/ApiEndpoint";
+import {API_GOALS_CREATE} from "../../constants/ApiEndpoint";
 import {useNavigate} from "react-router-dom";
 import {motion} from "framer-motion";
 import StepInput from "./StepInput";

@@ -4,15 +4,24 @@ import axios from "axios";
 import {API_DONE_CLICK, API_PROMISE_GOALS_FINISH, API_SUPER_DONE_CLICK} from "../../constants/ApiEndpoint";
 import ProgressLine from "../../component/ProgressLine";
 import {useNavigate} from "react-router-dom";
+import moment from "moment/moment";
 
 function MyPromiseGoalThumb({promiseGoal, onCongrats}) {
 
+    const promiseDoneCount =
+        promiseGoal.promiseGoal.endDate ? (
+            `${promiseGoal.promiseGoal.promiseDoneCount && promiseGoal.promiseGoal.promiseDoneCount}`
+        ) : (
+            `${(moment(new Date().toDateString()) - moment(promiseGoal.promiseGoal.startDate)) / (1000 * 60 * 60 * 24) + 1}`
+        )
+
+
     const passedDays = getPassedDays(promiseGoal.promiseGoal.startDate) + 1 //시작한날이 1일차
     const [doneCount, setDoneCount] = useState(promiseGoal.doneCount);
-    const progressValueDone = doneCount / promiseGoal.promiseGoal.promiseDoneCount;
+    const progressValueDone = doneCount / promiseDoneCount;
     const progressDone = Math.min(progressValueDone, 1)
     const [superDoneCount, setSuperDoneCount] = useState(promiseGoal.superDoneCount);
-    const progressValueSuperDone = superDoneCount / promiseGoal.promiseGoal.promiseDoneCount;
+    const progressValueSuperDone = superDoneCount / promiseDoneCount;
     const progressSuperDone = Math.min(progressValueSuperDone, 1)
 
     const [isDoneClicked, setIsDoneClicked] = useState(promiseGoal.isDoneToday);

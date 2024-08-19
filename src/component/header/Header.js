@@ -1,15 +1,26 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Notification from "./Notification";
 import logo from '../../asset/done_logo.png'
 import {useNavigate} from "react-router-dom";
-import {useRecoilValue} from "recoil";
-import {isLoginSelector} from "../../recoil/loginState";
+import {useRecoilState, useRecoilValue} from "recoil";
+import {isLoginSelector, UserTokenAtom} from "../../recoil/loginState";
 import {IoPersonCircleOutline} from "react-icons/io5";
 
 const Header = () => {
     const navigate = useNavigate();
-
     const isLogin = useRecoilValue(isLoginSelector);
+    const [userInfo, setUserInfo] = useRecoilState(UserTokenAtom);
+
+    useEffect(() => {
+        const getUserFromToken = async () => {
+            const token = localStorage.getItem('token');
+            if (token) {
+                setUserInfo(token);
+            }
+        };
+        getUserFromToken();
+    }, [setUserInfo]);
+
 
     return (
         <div className="pt-5 px-8 flex grow-0 justify-between items-center w-full
@@ -19,12 +30,12 @@ const Header = () => {
                     navigate("/")
                 }}/>
             </div>
-            {isLogin &&
-                <div className="flex gap-x-2">
+            <div className="flex gap-x-2">
+                {isLogin &&
                     <Notification/>
-                    <MyPageBtn/>
-                </div>
-            }
+                }
+                <MyPageBtn/>
+            </div>
         </div>
     );
 }

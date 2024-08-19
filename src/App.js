@@ -15,7 +15,7 @@ import Start from "./pages/Start";
 import MyPage from "./pages/MyPage";
 import CalendarPage from "./pages/CalendarPage";
 import LoadingPage from "./pages/loading/LoadingPage";
-import CreateMyGoal from "./pages/done/createmygoal/CreateMyGoal";
+import CreateMyGoal from "./pages/createmygoal/CreateMyGoal";
 import MyPromiseGoal from "./pages/done/MyPromiseGoal";
 import KakaoRedirect from "./pages/KakaoRedirect";
 import Home from "./pages/home/Home";
@@ -32,8 +32,9 @@ function App() {
                         <Routes>
                             {/*MainLayout 적용 페이지들*/}
                             <Route element={<MainLayout/>}>
+                                {/*TODO : Start - 랜딩페이지는 향후 작업후 루트로 접근하도록 변경 예정*/}
                                 <Route path="/start" element={<Start/>}/>
-                                <Route path="/" element={<Start/>}/>
+                                <Route path="/" element={<Home/>}/>
                                 <Route path="/home" element={<Home/>}/>
                                 <Route path="/goal/:id" element={<GoalDetail/>}/>
                                 <Route path="/login" element={<Login/>}/>

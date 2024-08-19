@@ -29,7 +29,7 @@ function GoalList() {
     return (
         <div className="">
             <div className="border-b-[1px]">
-                {/*<h2>🔥 목표</h2>*/}
+                <h2>🔥 이렇게 도전중이에요</h2>
             </div>
             {goalThumbsList && goalThumbsList.map((thumb, index)  => (
                 <div key={index}>
