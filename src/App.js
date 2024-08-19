@@ -15,9 +15,11 @@ import Start from "./pages/Start";
 import MyPage from "./pages/MyPage";
 import CalendarPage from "./pages/CalendarPage";
 import LoadingPage from "./pages/loading/LoadingPage";
-import CreateMyGoal from "./pages/done/createmygoal/CreateMyGoal";
+import CreateMyGoal from "./pages/createmygoal/CreateMyGoal";
 import MyPromiseGoal from "./pages/done/MyPromiseGoal";
 import KakaoRedirect from "./pages/KakaoRedirect";
+import Home from "./pages/home/Home";
+import GoalDetail from "./pages/home/goal/GoalDetail";
 
 function App() {
     // const [cookies] = useCookies(['visited']); TODO : 랜딩페이지 적용 후 활성화
@@ -30,10 +32,14 @@ function App() {
                         <Routes>
                             {/*MainLayout 적용 페이지들*/}
                             <Route element={<MainLayout/>}>
+                                {/*TODO : Start - 랜딩페이지는 향후 작업후 루트로 접근하도록 변경 예정*/}
+                                <Route path="/start" element={<Start/>}/>
+                                <Route path="/" element={<Home/>}/>
+                                <Route path="/home" element={<Home/>}/>
+                                <Route path="/goal/:id" element={<GoalDetail/>}/>
                                 <Route path="/login" element={<Login/>}/>
                                 <Route path="/kakao-login" element={<KakaoRedirect/>}/>
                                 <Route path="/join" element={<Join/>}/>
-                                <Route path="/start" element={<Start/>}/>
                                 <Route path="/loading" element={<LoadingPage/>}/>
                                 <Route path="/*" element={<NotFound/>}/>
                             </Route>
@@ -47,7 +53,7 @@ function App() {
                                 {/*  유저 전용 페이지  */}
                                 <Route element={<ProtectedRoute/>}>
                                     <Route element={<MainLayout/>}>
-                                        <Route path="/" element={<Done/>}/>
+                                        {/*<Route path="/" element={<Done/>}/>*/}
                                         <Route path="/done" element={<Done/>}/>
                                         <Route path="/promise-goal" element={<MyPromiseGoal/>}/>
                                         <Route path="/calendar" element={<CalendarPage/>}/>

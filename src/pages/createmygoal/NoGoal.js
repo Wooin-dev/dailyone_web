@@ -1,6 +1,6 @@
 import React from 'react';
 import Lottie from "lottie-react";
-import animationCheckList from "../../../asset/lottie/animationCheckList.json";
+import animationCheckList from "../../asset/lottie/animationCheckList.json";
 import {useNavigate} from "react-router-dom";
 
 function NoGoal() {

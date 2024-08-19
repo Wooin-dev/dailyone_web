@@ -6,7 +6,7 @@ import axios from "axios";
 import {API_PROMISE_GOALS_MY} from "../../constants/ApiEndpoint";
 import LoadingPage from "../loading/LoadingPage";
 import MyPromiseGoalList from "./MyPromiseGoalList";
-import NoGoal from "./createmygoal/NoGoal";
+import NoGoal from "../createmygoal/NoGoal";
 
 const Done = () => {
     const isLogin = useRecoilValue(isLoginSelector);

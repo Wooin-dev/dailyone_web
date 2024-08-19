@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 import axios from "axios";
-import {API_GOALS_GENERATE_SIMPLE} from "../../../constants/ApiEndpoint";
+import {API_GOALS_GENERATE_SIMPLE} from "../../constants/ApiEndpoint";
 
 function CreateMyGoalStep2({value, setValue, originalGoal}) {
     const refInput = useRef(null);

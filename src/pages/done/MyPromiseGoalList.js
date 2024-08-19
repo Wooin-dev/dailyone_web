@@ -20,8 +20,8 @@ function MyPromiseGoalList({promiseGoalList}) {
             <h2 className="w-full p-5 bg-white text-2xl font-bold text-gray-600 ">나의 D'ONE</h2>
 
             <div className={"px-4 w-full"}>
-                {promiseGoalList != null && promiseGoalList.map((promiseGoal) => (
-                    <MyPromiseGoalThumb promiseGoal={promiseGoal} onCongrats={handleCongrats}/>
+                {promiseGoalList != null && promiseGoalList.map((promiseGoal, index) => (
+                    <MyPromiseGoalThumb key={index} promiseGoal={promiseGoal} onCongrats={handleCongrats}/>
                 ))}
                 <div
                     className={"mx-auto flex items-center justify-center rounded-full size-16 bg-[#0bb8bc] m-8 cursor-pointer"}

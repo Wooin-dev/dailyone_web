@@ -14,7 +14,6 @@ function ProtectedRoute() {
             const token = localStorage.getItem('token');
             if (token) {
                 setUserInfo(token);
-                console.log(token);
             }
             setLoading(false);
         };
@@ -23,11 +22,10 @@ function ProtectedRoute() {
 
     useEffect(() => {
         if (!isLogin) {
-            // alert("로그인이 필요한 페이지입니다.");
-            console.log("로그인 필요");
+            console.log("로그인이 필요한 페이지입니다.");
         }
         else {
-            console.log("로그인됐군요");
+            console.log("로그인 상태가 확인되었습니다.");
         }
     }, [userInfo]);
 
