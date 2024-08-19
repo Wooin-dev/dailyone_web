@@ -19,16 +19,27 @@
 }
 
 .tab-icon {
-    width: 35px;
-    height: 35px;
-    fill: #868686;
-
+    width: 25px;
+    height: 25px;
+    fill: #363636;
 }
 
+
 .tab-icon.calendar{
-    width: 25px;
+    width: 23px;
+    height: 24px;
+    margin-bottom: 1px;
 }
 
 .tab-text {
-    color: #868686;
+    color: #363636;
+}
+
+.tab-icon.center {
+    width: 35px;
+    height: 35px;
+    fill: #ffffff;
+}
+.tab-text.center {
+    color: #ffffff;
 }
