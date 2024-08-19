@@ -16,21 +16,15 @@ function GoalList() {
     const elementRef = useRef(null);
 
 
-
-
     // 컴포넌트 렌더링 이후에 실행되며 Intersection Observer를 설정
     useEffect(() => {
-        console.log("옵져버 useEffect 실행")
-
         const onIntersection = (entries) => {
             const firstEntry = entries[0];
 
             if (firstEntry.isIntersecting && hasMore) {
                 // setPage(prevPage => prevPage + 1);
                 selectGoalThumbsList();
-                console.log(`${page} : 리스트 조회!`)
             }
-
         }
 
         const observer = new IntersectionObserver(onIntersection);
@@ -50,7 +44,6 @@ function GoalList() {
 
 
     const selectGoalThumbsList = async () => {
-        console.log(`select실행 : ${page}`)
         if (loading) return; //중복 요청 방지
         setLoading(true);
 
@@ -61,38 +54,19 @@ function GoalList() {
         if (result.goalThumbResponses.length === 0) {
             setHasMore(false);
         } else {
-            console.log(page);
             setGoalThumbsList(prevItems => [...prevItems, ...result.goalThumbResponses]);
             setPage((page) => page + 1);
             // console.log(currentPage);
             // console.log(page);
         }
         setLoading(false);
-
-        // axios.get(`${API_GOALS_SELECT_THUMBS}`, {params: {page: page, size: 5}})
-        //     .then(res => {
-        //
-        //         const data = res.data.result;
-        //         if (data.goalThumbResponses.length === 0) {
-        //             setHasMore(false);
-        //         } else {
-        //             console.log(data);
-        //             setGoalThumbsList(prevItems => [...prevItems, ...data.goalThumbResponses]);
-        //             setPage(prevPage => prevPage + 1);
-        //             console.log(page);
-        //         }
-        //     })
-        //     .catch(e => console.log(e))
-        //     .finally(() => {
-        //         setLoading(false);
-        //     })
     }
 
 
     return (
         <div className="">
             <div className="border-b-[1px]">
-                <h2>🔥 이렇게 도전중이에요 </h2>
+                <h2>🔥 이렇게 도전중이에요</h2>
             </div>
             {goalThumbsList && goalThumbsList.map((thumb, index) => (
                 <div key={index}>
@@ -123,10 +97,6 @@ const GoalThumb = ({
                        bgColor
                    }) => {
 
-
-    // const createdAtBefore = getTimeDifference(createdAt);
-    // console.log(createdAtBefore);
-    // const createdAtBefore = '3분';
     const navigate = useNavigate();
 
     return (
