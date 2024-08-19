@@ -36,7 +36,6 @@ function GoalDetail(props) {
     };
 
     const checkIsPromised = () => {
-        console.log(`${id}번 목표에 도전중인지 조회합니다`);
         axios.get(`${API_PROMISE_GOALS_CHECK_EXIST}/${id}`, {
             headers: {Authorization: 'Bearer ' + localStorage.getItem('token')},
         })

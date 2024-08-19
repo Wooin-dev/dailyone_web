@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {useNavigate} from "react-router-dom";
 import {bgColor} from "../../../constants/Temp";
 import GoalStatus from "./GoalStatus";
@@ -9,36 +9,103 @@ import {getPassedTimeBySection} from "../../../util/dateUtil";
 function GoalList() {
 
     const [goalThumbsList, setGoalThumbsList] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [hasMore, setHasMore] = useState(true);
+    const [page, setPage] = useState(0);
 
+    const elementRef = useRef(null);
+
+
+
+
+    // 컴포넌트 렌더링 이후에 실행되며 Intersection Observer를 설정
     useEffect(() => {
-        selectGoalThumbsList();
-    }, []);
+        console.log("옵져버 useEffect 실행")
 
-    const selectGoalThumbsList = () => {
-        axios.get(`${API_GOALS_SELECT_THUMBS}`)
-            .then(res => {
-                console.log(res.data.result);
-                setGoalThumbsList(res.data.result.goalThumbResponses);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+        const onIntersection = (entries) => {
+            const firstEntry = entries[0];
+
+            if (firstEntry.isIntersecting && hasMore) {
+                // setPage(prevPage => prevPage + 1);
+                selectGoalThumbsList();
+                console.log(`${page} : 리스트 조회!`)
+            }
+
+        }
+
+        const observer = new IntersectionObserver(onIntersection);
+
+        //elementRef가 현재 존재하면 observer로 해당 요소를 관찰
+        if (elementRef.current) {
+            observer.observe(elementRef.current);
+        }
+
+        // 컴포넌트가 언마운트되거나 더 이상 관찰할 필요가 없을 때(observer를 해제할 때)반환
+        return () => {
+            if (elementRef.current) {
+                observer.unobserve(elementRef.current);
+            }
+        };
+    }, [hasMore, page]);
+
+
+    const selectGoalThumbsList = async () => {
+        console.log(`select실행 : ${page}`)
+        if (loading) return; //중복 요청 방지
+        setLoading(true);
+
+        const response = await axios.get(`${API_GOALS_SELECT_THUMBS}`, {params: {page: page, size: 10, sort:'createdAt,desc' }});
+
+        const result = response.data.result;
+
+        if (result.goalThumbResponses.length === 0) {
+            setHasMore(false);
+        } else {
+            console.log(page);
+            setGoalThumbsList(prevItems => [...prevItems, ...result.goalThumbResponses]);
+            setPage((page) => page + 1);
+            // console.log(currentPage);
+            // console.log(page);
+        }
+        setLoading(false);
+
+        // axios.get(`${API_GOALS_SELECT_THUMBS}`, {params: {page: page, size: 5}})
+        //     .then(res => {
+        //
+        //         const data = res.data.result;
+        //         if (data.goalThumbResponses.length === 0) {
+        //             setHasMore(false);
+        //         } else {
+        //             console.log(data);
+        //             setGoalThumbsList(prevItems => [...prevItems, ...data.goalThumbResponses]);
+        //             setPage(prevPage => prevPage + 1);
+        //             console.log(page);
+        //         }
+        //     })
+        //     .catch(e => console.log(e))
+        //     .finally(() => {
+        //         setLoading(false);
+        //     })
     }
 
 
     return (
         <div className="">
             <div className="border-b-[1px]">
-                <h2>🔥 이렇게 도전중이에요</h2>
+                <h2>🔥 이렇게 도전중이에요 </h2>
             </div>
-            {goalThumbsList && goalThumbsList.map((thumb, index)  => (
+            {goalThumbsList && goalThumbsList.map((thumb, index) => (
                 <div key={index}>
                     <GoalThumb goalId={thumb.goalId} author={thumb.nickname} createdAt={thumb.createdAt}
                                simpleGoal={thumb.simpleGoal} originalGoal={thumb.originalGoal}
-                               challengersCount={thumb.challengersCount} totalDoneCount={thumb.doneCount} viewCount={thumb.viewCount}
+                               challengersCount={thumb.challengersCount} totalDoneCount={thumb.doneCount}
+                               viewCount={thumb.viewCount}
                                bgColor={bgColor[thumb.goalId % bgColor.length]}/>
                 </div>
             ))}
+            {hasMore &&
+                <div ref={elementRef} className="text-center text-gray-700 text-sm py-2"> 다른 목표 불러오는 중...</div>
+            }
         </div>
     );
 }
@@ -55,7 +122,6 @@ const GoalThumb = ({
                        viewCount,
                        bgColor
                    }) => {
-
 
 
     // const createdAtBefore = getTimeDifference(createdAt);
