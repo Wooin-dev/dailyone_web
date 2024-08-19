@@ -1,5 +1,4 @@
-export const BASE_URI = process.env.REACT_APP_API_BASE_URI
-export const BASE_API_URI = BASE_URI + ":8080"
+export const BASE_API_URI = process.env.REACT_APP_API_BASE_URI
 export const API_VERSION = "v1";
 
 // USERS
