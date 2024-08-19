@@ -10,6 +10,8 @@ export const API_USERS_MYINFO = `${BASE_API_URI}/api/${API_VERSION}/users/myinfo
 
 // GOALS
 export const API_GOALS_CREATE = `${BASE_API_URI}/api/${API_VERSION}/goals`;
+export const API_GOALS_SELECT = `${BASE_API_URI}/api/${API_VERSION}/goals`;
+export const API_GOALS_SELECT_THUMBS = `${BASE_API_URI}/api/${API_VERSION}/goals/thumbs`;
 export const API_GOALS_MY_DELETE = `${BASE_API_URI}/api/${API_VERSION}/goals/my`;
 export const API_GOALS_MY = `${BASE_API_URI}/api/${API_VERSION}/goals/my`;
 export const API_GOALS_GENERATE_SIMPLE = `${BASE_API_URI}/api/${API_VERSION}/goals/generate-simple`;
