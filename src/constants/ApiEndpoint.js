@@ -5,6 +5,7 @@ export const API_VERSION = "v1";
 // USERS
 export const API_USERS_LOGIN = `${BASE_API_URI}/api/${API_VERSION}/users/login`;
 export const API_USERS_JOIN = `${BASE_API_URI}/api/${API_VERSION}/users/join`;
+export const API_USERS_CHECK_EMAIL_DUPLICATED = `${BASE_API_URI}/api/${API_VERSION}/users/check-email-duplicated`;
 export const API_USERS_MYINFO = `${BASE_API_URI}/api/${API_VERSION}/users/myinfo`;
 
 

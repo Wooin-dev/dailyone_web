@@ -113,7 +113,7 @@ const Login = () => {
                 </div>
 
                 <div className="btn-col mt-3">
-                    <div className="mb-3 text-gray-500 text-center underline cursor-pointer" onClick={demoLoginBtnHandler}>데모 아이디로 로그인</div>
+                    <div className="mb-3 text-gray-400 text-sm text-center underline cursor-pointer" onClick={demoLoginBtnHandler}>데모 아이디로 로그인</div>
                     <button className="btn-main" value={"로그인"} onClick={e => {
                         e.preventDefault();
                         loginBtnHandler();
