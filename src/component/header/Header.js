@@ -23,10 +23,10 @@ const Header = () => {
 
 
     return (
-        <div className="pt-5 px-8 flex grow-0 justify-between items-center w-full
+        <div className="pt-7 px-8 flex grow-0 justify-between items-center w-full
                         bg-gradient-to-r from-cyan-500 to-green-500">
             <div>
-                <img src={logo} alt="logo" className="h-16 brightness-0 invert cursor-pointer" onClick={() => {
+                <img src={logo} alt="logo" className="h-16 -mb-1.5 brightness-0 invert cursor-pointer" onClick={() => {
                     navigate("/")
                 }}/>
             </div>
