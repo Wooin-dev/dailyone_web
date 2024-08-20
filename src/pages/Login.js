@@ -45,6 +45,23 @@ const Login = () => {
         });
     }
 
+    function demoLoginBtnHandler() {
+        axios.post(`${API_USERS_LOGIN}`, {
+            email: "demo@done.com",
+            password: "demo12#$"
+        }, {
+            withCredentials: true
+        }).then(res => {
+            const token = res.data.result.token
+            setUserInfo(token);
+            localStorage.setItem('token', token);
+            navigate('/');
+        }).catch(error => {
+            console.log(error)
+            alert("로그인에 실패하였습니다");
+        });
+    }
+
     function loginValidate() {
         if (email === "" || password === "") {
             alert("이메일과 비밀번호를 확인해주세요.");
@@ -72,34 +89,9 @@ const Login = () => {
             navigate('/');
         }).catch(error => {
             console.log(error)
-            // if(error.response.status === 404) {
             alert("로그인에 실패하였습니다");
-            // }
         });
-        // e.preventDefault();
-        // window.location.href = KAKAO_AUTH_URL;
     }
-
-    // const SocialKakao =()=>{
-    //
-    //     const kakaoClientId = 'JavaScript KEY'
-    //     const kakaoOnSuccess = async (data)=>{
-    //         console.log(data)
-    //         const idToken = data.response.access_token  // 엑세스 토큰 백엔드로 전달
-    //     }
-    //     const kakaoOnFailure = (error) => {
-    //         console.log(error);
-    //     };
-    //     return(
-    //         <>
-    //             <KakaoLogin
-    //                 token={kakaoClientId}
-    //                 onSuccess={kakaoOnSuccess}
-    //                 onFail={kakaoOnFailure}
-    //             />
-    //         </>
-    //     )
-    // }
 
     return (
         <div className="flex flex-col items-center w-full">
@@ -120,7 +112,8 @@ const Login = () => {
                     }}/>
                 </div>
 
-                <div className="btn-col mt-10">
+                <div className="btn-col mt-3">
+                    <div className="mb-3 text-gray-500 text-center underline cursor-pointer" onClick={demoLoginBtnHandler}>데모 아이디로 로그인</div>
                     <button className="btn-main" value={"로그인"} onClick={e => {
                         e.preventDefault();
                         loginBtnHandler();
