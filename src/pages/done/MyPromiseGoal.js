@@ -6,6 +6,7 @@ import {API_DONE_CLICK, API_PROMISE_GOALS_DELETE, API_SUPER_DONE_CLICK} from "..
 import moment from "moment";
 import {useLocation, useNavigate} from "react-router-dom";
 import {IoArrowBack} from "react-icons/io5";
+import {GrGroup} from "react-icons/gr";
 
 function MyPromiseGoal() {
     const navigate = useNavigate();
@@ -88,7 +89,8 @@ function MyPromiseGoal() {
         <div className={"flex flex-col w-full h-full py-3 px-5"}>
             <div className="flex items-center relative mb-5">
                 <IoArrowBack className="absolute size-6 fill-gray-300 cursor-pointer" onClick={() => navigate(-1)}/>
-                <div className={"w-full text-center text-gray-400"}>오늘의 Done - {passedDays}일차</div>
+                <div className="text-center w-full text-gray-700 text-sm"><span className="font-bold">{promiseGoal.goal.user.nickname}</span>님이 처음 만든 목표 - {passedDays}일차</div>
+                <GrGroup className="absolute right-0 size-6 pt-0.5 cursor-pointer" onClick={() => {navigate(`/goal/${promiseGoal.goal.id}`)}}/>
             </div>
             <div className="flex flex-col flex-grow items-center justify-evenly">
                 <div className="wrap-goal flex flex-col w-full h-fit mb-3">
