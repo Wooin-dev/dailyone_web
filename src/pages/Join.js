@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
-import {API_USERS_JOIN} from "../constants/ApiEndpoint";
+import {API_USERS_CHECK_EMAIL_DUPLICATED, API_USERS_JOIN} from "../constants/ApiEndpoint";
 
 function Join() {
 
@@ -22,8 +22,24 @@ function Join() {
     const [isValidatedPasswordConfirm, setIsValidatedPasswordConfirm] = useState(false);
     const [isValidatedNickname, setIsValidatedNickname] = useState(false);
 
+    const [emailConfirmed, setEmailConfirmed] = useState(false);
+
+    const checkEmailDuplicated = () => {
+
+        axios.get(`${API_USERS_CHECK_EMAIL_DUPLICATED}`, {params:{email:email}})
+            .then(res => {
+                const isDuplicated = res.data.result;
+                setEmailErrorMsg(isDuplicated ? "이미 가입된 이메일 주소입니다" : "사용 가능한 이메일 주소입니다");
+
+                if(!isDuplicated) {
+                    setEmailConfirmed(true);
+                }
+            }).catch(e => console.log(e));
+    }
+
     function validateEmail(email) {
         setEmail(email);
+        setEmailConfirmed(false);
         const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
         if (!regex.test(email)) {
             setEmailErrorMsg("이메일 형식에 맞게 입력해주세요");
@@ -81,6 +97,11 @@ function Join() {
             return false;
         }
 
+        if (!emailConfirmed) {
+            alert("이메일 중복확인 해주세요");
+            return;
+        }
+
         axios.post(`${API_USERS_JOIN}`, {
             email: _email,
             password: _password,
@@ -101,20 +122,24 @@ function Join() {
             <h1 className={"text-center my-10"}>JOIN</h1>
 
             <div className="flex flex-col items-center w-full px-16">
-                <div className="input-wrap">
+                <div className="input-wrap relative">
                     <div className="input-title"> 이메일 주소</div>
                     <input name={"email"} value={email} type={"email"} placeholder="로그인에 사용될 이메일 계정입니다"
-                           onChange={e => {
+                           className={emailConfirmed ? "bg-gray-100 text-gray-500" : undefined} readOnly={emailConfirmed} onChange={e => {
                                validateEmail(e.target.value);
-                    }}/>
-                    <div className="error-msg">{emailErrorMsg}</div>
+                           }}/>
+                    <div
+                        className="absolute right-0 top-0 text-cyan-50 bg-cyan-600 mt-[1px] py-0.5 px-2 rounded-lg text-xs font-bold cursor-pointer"
+                        onClick={checkEmailDuplicated}>중복 확인
+                    </div>
+                    <div className={`error-msg ${emailConfirmed && "text-emerald-700"}`}>{emailErrorMsg}</div>
                 </div>
                 <div className="input-wrap">
                     <div className="input-title"> 비밀번호</div>
                     <input name={"password"} value={password} type={"password"} placeholder="8자리 이상의 비밀번호"
                            onChange={e => {
                                validatePassword(e.target.value)
-                    }}/>
+                           }}/>
                     <div className="error-msg">{passwordErrorMsg}</div>
                 </div>
                 <div className="input-wrap">
@@ -130,7 +155,7 @@ function Join() {
                     <input name={"nickname"} value={nickname} type={"text"} placeholder="3자리 이상, 15자리 이하"
                            onChange={e => {
                                validateNickname(e.target.value)
-                    }}/>
+                           }}/>
                     <div className="error-msg">{nicknameErrorMsg}</div>
                 </div>
                 <button className="btn-main my-12" value={"회원가입"} onClick={e => {

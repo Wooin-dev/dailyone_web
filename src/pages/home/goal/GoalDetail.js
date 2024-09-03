@@ -1,6 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import {useNavigate, useParams} from "react-router-dom";
-import {API_GOALS_FOLLOW, API_GOALS_SELECT, API_PROMISE_GOALS_CHECK_EXIST} from "../../../constants/ApiEndpoint";
+import {
+    API_GOALS_FEED_LIST,
+    API_GOALS_FOLLOW,
+    API_GOALS_SELECT,
+    API_PROMISE_GOALS_CHECK_EXIST
+} from "../../../constants/ApiEndpoint";
 import {bgColor} from "../../../constants/Temp";
 import {GrGroup} from "react-icons/gr";
 import {FaRegCircleCheck} from "react-icons/fa6";
@@ -16,12 +21,14 @@ function GoalDetail(props) {
     const isLogin = useRecoilValue(isLoginSelector);
     const [goal, setGoal] = useState(null);
     const [isPromised, setIsPromised] = useState(false);
+    const [feedList, setFeedList] = useState();
 
     const avgDone = 0.3;
     const author = goal && goal.nickname;
 
     useEffect(() => {
         fetchGoal();
+        feedListAxios();
     }, [id]);
 
     useEffect(() => {
@@ -80,6 +87,30 @@ function GoalDetail(props) {
             });
     }
 
+    const feedListAxios = () => {
+
+        axios.get(`${API_GOALS_FEED_LIST}`,
+            {
+                params: {
+                    goalId: id,
+                    page: 0,
+                    size: 10
+                },
+            }).then(res => {
+            console.log(res.data.result);
+            setFeedList(res.data.result.feedOfGoalList);
+        })
+            .catch(e => console.log(e));
+    }
+
+    const feedArgsCombineWithText = (feedArgs, feedText) => {
+        // 정규 표현식을 사용하여 {} 안의 변수를 찾음
+        return feedText.replace(/{(.*?)}/g, (match, p1) => {
+            // p1은 {} 안의 변수명
+            return feedArgs[p1] || match; // args에서 변수명을 찾아서 대체, 없으면 원래의 match 반환
+        });
+    }
+
     return goal && (
         <div className="size-full relative">
             <div className="px-5 mb-3">
@@ -95,7 +126,8 @@ function GoalDetail(props) {
                     </div>
                     {isPromised
                         ? (
-                            <div className="py-1.5 px-3 rounded-full text-center text-sm text-white bg-gray-300 font-semibold cursor-default">
+                            <div
+                                className="py-1.5 px-3 rounded-full text-center text-sm text-white bg-gray-300 font-semibold cursor-default">
                                 도전 중
                             </div>
                         ) : (
@@ -131,6 +163,17 @@ function GoalDetail(props) {
                             {goal.doneCount}번의 DONE
                         </div>
                     </div>
+                </div>
+                <div>
+                    {feedList && feedList.map((feed, index) => (
+                        <div key={index} className="px-2 py-3 my-1 border-b-[0.2px] text-sm  shadow-sm">
+
+                            <div className="flex justify-between items-center">
+                                <p>{feedArgsCombineWithText(feed.feedArgs, feed.feedText)}</p>
+                                <div className="text-sm text-gray-700">{getPassedTimeBySection(feed.createdAt)}</div>
+                            </div>
+                        </div>
+                    ))}
                 </div>
             </div>
 
