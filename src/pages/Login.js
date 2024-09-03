@@ -46,9 +46,10 @@ const Login = () => {
     }
 
     function demoLoginBtnHandler() {
+        const DEMO_PWD = process.env.REACT_APP_DEMO_ID_PWD;
         axios.post(`${API_USERS_LOGIN}`, {
             email: "demo@done.com",
-            password: "demo12#$"
+            password: DEMO_PWD
         }, {
             withCredentials: true
         }).then(res => {
