@@ -5,12 +5,14 @@ export const API_VERSION = "v1";
 // USERS
 export const API_USERS_LOGIN = `${BASE_API_URI}/api/${API_VERSION}/users/login`;
 export const API_USERS_JOIN = `${BASE_API_URI}/api/${API_VERSION}/users/join`;
+export const API_USERS_CHECK_EMAIL_DUPLICATED = `${BASE_API_URI}/api/${API_VERSION}/users/check-email-duplicated`;
 export const API_USERS_MYINFO = `${BASE_API_URI}/api/${API_VERSION}/users/myinfo`;
 
 
 // GOALS
 export const API_GOALS_CREATE = `${BASE_API_URI}/api/${API_VERSION}/goals`;
 export const API_GOALS_FOLLOW = `${BASE_API_URI}/api/${API_VERSION}/goals/follow`;
+export const API_GOALS_FEED_LIST = `${BASE_API_URI}/api/${API_VERSION}/goals/feeds`;
 export const API_GOALS_SELECT = `${BASE_API_URI}/api/${API_VERSION}/goals`;
 export const API_GOALS_SELECT_THUMBS = `${BASE_API_URI}/api/${API_VERSION}/goals/thumbs`;
 export const API_GOALS_MY_DELETE = `${BASE_API_URI}/api/${API_VERSION}/goals/my`;

@@ -196,9 +196,10 @@
 
     .error-msg {
         color: red;
-        font-size: 0.9rem;
+        font-size: 0.75rem;
         height: 1rem;
         word-break: keep-all;
+        font-weight: bolder;
     }
 
     .wrap-goal {
